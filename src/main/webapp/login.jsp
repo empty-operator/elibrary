@@ -32,7 +32,7 @@
 
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input name="remember-me" type="checkbox">Remember me
             </label>
         </div>
 

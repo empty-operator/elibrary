@@ -10,11 +10,15 @@
                     <li class="nav-item"><a href="LoansServlet" class="nav-link">Loans</a></li>
                 </c:when>
                 <c:when test="${sessionScope.user.role eq Role.ADMIN}">
-                    <li class="nav-item"><a href="1" class="nav-link">Users</a></li>
+                    <li class="nav-item"><a href="UsersServlet" class="nav-link">Users</a></li>
+                    <li class="nav-item"><a href="NewBookServlet" class="nav-link">Add book</a></li>
                 </c:when>
             </c:choose>
         </ul>
     </header>
+    <p class="float-end mb-1">
+        <a href="#">Log out</a>
+    </p>
 </div>
 
 <script src="dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>

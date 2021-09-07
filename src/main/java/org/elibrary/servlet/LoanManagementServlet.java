@@ -32,13 +32,17 @@ public class LoanManagementServlet extends HttpServlet {
         try {
             LoanDao loanDao = LoanDao.getInstance();
             Loan loan = loanDao.get(Integer.parseInt(request.getParameter("loan_id")));
-            if ("approve".equals(action)) {
-                loan.setLoanedAt(new Timestamp(System.currentTimeMillis()));
-                loan.setDueDate(stringToTimestamp(request.getParameter("date")));
-            } else if ("reject".equals(action)) {
-                loan.setRejected(true);
-            } else if ("return".equals(action)) {
-                loan.setReturnedAt(new Timestamp(System.currentTimeMillis()));
+            switch (action) {
+                case "approve":
+                    loan.setLoanedAt(new Timestamp(System.currentTimeMillis()));
+                    loan.setDueDate(stringToTimestamp(request.getParameter("date")));
+                    break;
+                case "reject":
+                    loan.setRejected(true);
+                    break;
+                case "return":
+                    loan.setReturnedAt(new Timestamp(System.currentTimeMillis()));
+                    break;
             }
             loanDao.update(loan);
             response.sendRedirect("LoansServlet");

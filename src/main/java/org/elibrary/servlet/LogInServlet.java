@@ -25,6 +25,9 @@ public class LogInServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             User user = UserDao.getInstance().getByEmail(request.getParameter("email"));
+            if (request.getParameter("remember-me") != null) {
+                request.getSession().setMaxInactiveInterval(60 * 60 * 24);
+            }
             if (BCrypt.checkpw(request.getParameter("password"), user.getPassword())) {
                 request.getSession().setAttribute("user", user);
                 response.sendRedirect("CatalogServlet");

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" import="org.elibrary.entity.Role" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html lang="en">
 <head>
     <meta charset="utf-8">

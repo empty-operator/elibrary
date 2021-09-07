@@ -26,16 +26,21 @@ public class NewLoanServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
         Loan loan = new Loan();
-        loan.setUser((User) request.getSession().getAttribute("user"));
+        loan.setUser(user);
         try {
             loan.setBook(BookDao.getInstance().get(Integer.parseInt(request.getParameter("book_id"))));
             LoanDao.getInstance().insert(loan);
+            response.sendRedirect("CatalogServlet");
         } catch (SQLException | NamingException e) {
             // TODO: 27.08.2021 error handling
             LOG.error("Cannot insert book loan" + e);
         }
-        response.sendRedirect("CatalogServlet");
     }
 
 }

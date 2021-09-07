@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet(name = "NewBookServlet", value = "/NewBookServlet")
@@ -22,7 +23,7 @@ public class NewBookServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Book book = new Book();
         book.setTitle(request.getParameter("title"));
         book.setAuthor(request.getParameter("author"));
@@ -35,6 +36,7 @@ public class NewBookServlet extends HttpServlet {
             // TODO: 24.08.2021 error handling
             LOG.error("Cannot insert book" + e);
         }
+        response.sendRedirect("new-book.jsp");
     }
 
 }

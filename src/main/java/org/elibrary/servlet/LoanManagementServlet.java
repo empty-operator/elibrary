@@ -27,7 +27,7 @@ public class LoanManagementServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String action = request.getParameter("action");
         try {
             LoanDao loanDao = LoanDao.getInstance();

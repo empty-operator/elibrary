@@ -39,8 +39,8 @@
                 <tbody>
                 <c:forEach items="${requestScope.list_of_loans}" var="loan">
                     <tr>
-                        <td>${loan.user.firstName} ${loan.user.lastName}</td>
-                        <td>${loan.book.title}</td>
+                        <td><c:out value="${loan.user.firstName} ${loan.user.lastName}"/></td>
+                        <td><c:out value="${loan.book.title}"/></td>
                         <c:choose>
                             <c:when test="${loan.rejected}">
                                 <td>

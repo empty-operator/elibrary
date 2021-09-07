@@ -51,12 +51,12 @@
                     <div class="col">
                         <div class="card h-100 shadow-sm">
                             <div class="card-body">
-                                <h5 class="card-title">${book.title}</h5>
+                                <h5 class="card-title"><c:out value="${book.title}"/></h5>
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">${book.author}</li>
-                                <li class="list-group-item">${book.publisher}</li>
-                                <li class="list-group-item">${book.year}</li>
+                                <li class="list-group-item"><c:out value="${book.author}"/></li>
+                                <li class="list-group-item"><c:out value="${book.publisher}"/></li>
+                                <li class="list-group-item"><c:out value="${book.year}"/></li>
                             </ul>
                             <div class="card-footer">
                                 <form class="form-loan d-flex align-items-center" action="NewLoanServlet" method="post">
@@ -67,7 +67,7 @@
                                     </c:if>
                                     <c:if test="${not (book.amount eq 0)}">
                                         <button type="submit" class="btn btn-primary">Borrow</button>
-                                        <small class="text-muted">${book.getAmountString()}</small>
+                                        <small class="text-muted"><c:out value="${book.getAmountString()}"/></small>
                                     </c:if>
                                 </form>
                             </div>

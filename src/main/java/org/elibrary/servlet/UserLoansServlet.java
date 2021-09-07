@@ -21,14 +21,18 @@ public class UserLoansServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
         try {
-            User user = (User) request.getSession().getAttribute("user");
             request.setAttribute("list_of_loans", LoanDao.getInstance().getAll(user.getId()));
+            request.getRequestDispatcher("user-loans.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             // TODO: 25.08.2021 error handling
             LOG.error("Cannot get loans", e);
         }
-        request.getRequestDispatcher("user-loans.jsp").forward(request, response);
     }
 
     @Override

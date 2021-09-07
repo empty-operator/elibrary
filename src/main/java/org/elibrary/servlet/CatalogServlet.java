@@ -27,11 +27,11 @@ public class CatalogServlet extends HttpServlet {
             request.setAttribute("list_of_books", BookDao.getInstance().getAll().stream()
                                                          .sorted(Comparator.comparing(Book::getTitle))
                                                          .collect(Collectors.toList()));
+            request.getRequestDispatcher("catalog.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             // TODO: 25.08.2021 error handling
             LOG.error("Cannot get books", e);
         }
-        request.getRequestDispatcher("catalog.jsp").forward(request, response);
     }
 
     @Override

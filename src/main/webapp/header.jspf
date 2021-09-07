@@ -9,9 +9,9 @@
                 <c:when test="${sessionScope.user.role eq Role.LIBRARIAN}">
                     <li class="nav-item"><a href="LoansServlet" class="nav-link">Loans</a></li>
                 </c:when>
-<%--                <c:otherwise>--%>
-<%--                    <li class="nav-item"><a href="" class="nav-link">Otherwise</a></li>--%>
-<%--                </c:otherwise>--%>
+                <c:when test="${sessionScope.user.role eq Role.ADMIN}">
+                    <li class="nav-item"><a href="1" class="nav-link">Users</a></li>
+                </c:when>
             </c:choose>
         </ul>
     </header>

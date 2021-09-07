@@ -22,11 +22,11 @@ public class LoansServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             request.setAttribute("list_of_loans", LoanDao.getInstance().getAll());
+            request.getRequestDispatcher("loans.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             // TODO: 25.08.2021 error handling
             LOG.error("Cannot get loans", e);
         }
-        request.getRequestDispatcher("loans.jsp").forward(request, response);
     }
 
     @Override

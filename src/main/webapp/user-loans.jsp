@@ -39,10 +39,10 @@
                 <tbody class="text-truncate">
                     <c:forEach items="${requestScope.list_of_loans}" var="loan">
                         <tr>
-                            <td>${loan.book.title}</td>
-                            <td>${loan.loanedAt}</td>
-                            <td>${loan.dueDate}</td>
-                            <td>${loan.returnedAt}</td>
+                            <td><c:out value="${loan.book.title}"/></td>
+                            <td><c:out value="${loan.loanedAt}"/></td>
+                            <td><c:out value="${loan.dueDate}"/></td>
+                            <td><c:out value="${loan.returnedAt}"/></td>
                             <td>
                                 <c:choose>
                                     <c:when test="${loan.rejected}">

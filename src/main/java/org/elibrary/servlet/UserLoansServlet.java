@@ -23,12 +23,12 @@ public class UserLoansServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("login");
             return;
         }
         try {
             request.setAttribute("list_of_loans", LoanDao.getInstance().getAll(user.getId()));
-            request.getRequestDispatcher("user-loans.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/jsp/user-loans.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             // TODO: 25.08.2021 error handling
             LOG.error("Cannot get loans", e);

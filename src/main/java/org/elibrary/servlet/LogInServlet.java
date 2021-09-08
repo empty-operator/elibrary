@@ -30,9 +30,9 @@ public class LogInServlet extends HttpServlet {
             }
             if (BCrypt.checkpw(request.getParameter("password"), user.getPassword())) {
                 request.getSession().setAttribute("user", user);
-                response.sendRedirect("CatalogServlet");
+                response.sendRedirect(request.getContextPath());
             } else {
-                response.sendRedirect("login.jsp");
+                response.sendRedirect("login");
             }
         } catch (SQLException | NamingException e) {
             // TODO: 26.08.2021 error handling

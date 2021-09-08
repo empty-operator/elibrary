@@ -10,7 +10,6 @@
 
     <link href="css/loans.css" rel="stylesheet">
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="dist/js/bootstrap.bundle.min.js" rel="stylesheet">
 
     <style>
         @media (min-width: 768px) {
@@ -22,7 +21,7 @@
 
 <main>
 
-    <%@ include file="header.jspf" %>
+    <%@ include file="header.jspf"%>
 
     <div class="py-5 bg-light">
         <div class="container">

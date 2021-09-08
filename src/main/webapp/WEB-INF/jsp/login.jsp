@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.87.0">
     <title>Log in</title>
+
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
 
     <style>
         @media (min-width: 768px) {
         }
     </style>
 
-    <link href="css/login.css" rel="stylesheet">
 </head>
 <body class="text-center">
+
 <main class="form-login">
     <form action="LogInServlet" method="post">
 <%--        <img class="mb-4" src="img/logo.svg" width="64" height="64" alt="logo">--%>

@@ -16,6 +16,30 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>Sign up</servlet-name>
+        <jsp-file>/WEB-INF/jsp/signup.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Sign up</servlet-name>
+        <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Log in</servlet-name>
+        <jsp-file>/WEB-INF/jsp/login.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Log in</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>New book</servlet-name>
+        <jsp-file>/WEB-INF/jsp/new-book.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>New book</servlet-name>
+        <url-pattern>/new-book</url-pattern>
+    </servlet-mapping>
     <resource-ref>
         <description>postgreSQL Datasource</description>
         <res-ref-name>jdbc/postgres</res-ref-name>

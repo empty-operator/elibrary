@@ -6,15 +6,16 @@
     <meta name="generator" content="Hugo 0.87.0">
     <title>Add book</title>
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/new-book.css" rel="stylesheet">
 
     <style>
         @media (min-width: 768px) {
         }
     </style>
 
-    <link href="css/new-book.css" rel="stylesheet">
 </head>
 <body class="text-center">
+
 <main class="form-new-book">
     <form action="NewBookServlet" method="post">
         <%--        <img class="mb-4" src="img/logo.svg" width="64" height="64" alt="logo">--%>

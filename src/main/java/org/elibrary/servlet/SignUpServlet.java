@@ -33,7 +33,7 @@ public class SignUpServlet extends HttpServlet {
         try {
             UserDao.getInstance().insert(user);
             request.getSession().setAttribute("user", user);
-            response.sendRedirect("CatalogServlet");
+            response.sendRedirect(request.getContextPath());
         } catch (SQLException | NamingException e) {
             // TODO: 24.08.2021 error handling
             LOG.error("Cannot insert user" + e);

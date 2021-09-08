@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
-@WebServlet(name = "CatalogServlet", value = "/CatalogServlet")
+@WebServlet(name = "CatalogServlet", value = "/")
 public class CatalogServlet extends HttpServlet {
 
     private static final Logger LOG = LogManager.getLogger(CatalogServlet.class);
@@ -27,7 +27,7 @@ public class CatalogServlet extends HttpServlet {
             request.setAttribute("list_of_books", BookDao.getInstance().getAll().stream()
                                                          .sorted(Comparator.comparing(Book::getTitle))
                                                          .collect(Collectors.toList()));
-            request.getRequestDispatcher("catalog.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/jsp/catalog.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             // TODO: 25.08.2021 error handling
             LOG.error("Cannot get books", e);

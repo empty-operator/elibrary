@@ -11,7 +11,6 @@
 
     <link href="css/catalog.css" rel="stylesheet">
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="dist/js/bootstrap.bundle.min.js" rel="stylesheet">
 
     <style>
         @media (min-width: 768px) {
@@ -34,8 +33,8 @@
                         creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it
                         entirely.</p>
                     <p>
-                        <a href="${pageContext.request.contextPath}/signup.jsp" class="btn btn-primary my-2">Sign up</a>
-                        <a href="${pageContext.request.contextPath}/login.jsp" class="btn btn-secondary my-2">Log in</a>
+                        <a href="signup" class="btn btn-primary my-2">Sign up</a>
+                        <a href="login" class="btn btn-secondary my-2">Log in</a>
                     </p>
                 </div>
             </div>
@@ -44,6 +43,42 @@
 
     <div class="py-5 bg-light">
         <div class="container">
+
+            <div class="row g-2">
+
+                <div class="col">
+                    <form class="input-group" action="${pageContext.request.contextPath}" method="get">
+                        <input name="q" type="text" class="form-control" placeholder="Search..." aria-label="Search">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">Search by
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}">Title</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}">Author</a></li>
+                        </ul>
+                        <button class="btn btn-outline-secondary" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="col-auto">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Sort by
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}">Title</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}">Author</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}">Publisher</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}">Year</a></li>
+                    </ul>
+                </div>
+
+            </div>
 
             <div class="row row-cols-4 g-3">
 

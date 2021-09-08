@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.87.0">
     <title>Sign up</title>
+
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/signup.css" rel="stylesheet">
 
     <style>
         @media (min-width: 768px) {
         }
     </style>
 
-    <link href="css/signup.css" rel="stylesheet">
 </head>
 <body class="text-center">
+
 <main class="form-signup">
     <form action="SignUpServlet" method="post">
 <%--        <img class="mb-4" src="img/logo.svg" width="64" height="64" alt="logo">--%>

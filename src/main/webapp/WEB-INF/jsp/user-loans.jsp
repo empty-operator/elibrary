@@ -9,7 +9,6 @@
     <title>Loans</title>
 
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="dist/js/bootstrap.bundle.min.js" rel="stylesheet">
 
     <style>
         @media (min-width: 768px) {

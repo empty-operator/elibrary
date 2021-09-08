@@ -20,7 +20,7 @@ public class UsersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             request.setAttribute("list_of_users", UserDao.getInstance().getAll());
-            request.getRequestDispatcher("users.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/jsp/users.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             // TODO: 07.09.2021 error handling
             LOG.error("Cannot get users", e);

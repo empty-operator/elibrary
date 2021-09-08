@@ -36,7 +36,7 @@ public class NewBookServlet extends HttpServlet {
             // TODO: 24.08.2021 error handling
             LOG.error("Cannot insert book" + e);
         }
-        response.sendRedirect("new-book.jsp");
+        response.sendRedirect("new-book");
     }
 
 }

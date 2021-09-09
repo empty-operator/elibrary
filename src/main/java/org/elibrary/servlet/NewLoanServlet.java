@@ -36,7 +36,7 @@ public class NewLoanServlet extends HttpServlet {
         try {
             loan.setBook(BookDao.getInstance().get(Integer.parseInt(request.getParameter("book_id"))));
             LoanDao.getInstance().insert(loan);
-            response.sendRedirect(request.getContextPath());
+            response.sendRedirect("catalog");
         } catch (SQLException | NamingException e) {
             // TODO: 27.08.2021 error handling
             LOG.error("Cannot insert book loan" + e);

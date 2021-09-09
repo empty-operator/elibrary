@@ -30,7 +30,7 @@ public class LogInServlet extends HttpServlet {
             }
             if (BCrypt.checkpw(request.getParameter("password"), user.getPassword())) {
                 request.getSession().setAttribute("user", user);
-                response.sendRedirect(request.getContextPath());
+                response.sendRedirect("catalog");
             } else {
                 response.sendRedirect("login");
             }

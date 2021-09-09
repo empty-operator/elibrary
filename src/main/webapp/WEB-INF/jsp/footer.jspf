@@ -6,3 +6,5 @@
         <p class="mb-1">&copy; eLibrary, 2021</p>
     </div>
 </footer>
+
+<script src="dist/js/bootstrap.bundle.min.js"></script>

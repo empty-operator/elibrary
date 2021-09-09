@@ -14,9 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-@WebServlet(name = "CatalogServlet", value = "/")
+@WebServlet(name = "CatalogServlet", value = "/catalog")
 public class CatalogServlet extends HttpServlet {
 
     private static final Logger LOG = LogManager.getLogger(CatalogServlet.class);
@@ -24,9 +27,11 @@ public class CatalogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            request.setAttribute("list_of_books", BookDao.getInstance().getAll().stream()
-                                                         .sorted(Comparator.comparing(Book::getTitle))
-                                                         .collect(Collectors.toList()));
+            Map<Boolean, List<Book>> map = BookDao.getInstance().getAll().stream()
+                                                  .collect(Collectors.partitioningBy(x -> x.getAmount() == 0));
+            request.setAttribute("list_of_books", Stream.concat(map.get(false).stream().sorted(Comparator.comparing(Book::getTitle)),
+                                                                map.get(true).stream().sorted(Comparator.comparing(Book::getTitle)))
+                                                        .collect(Collectors.toList()));
             request.getRequestDispatcher("WEB-INF/jsp/catalog.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             // TODO: 25.08.2021 error handling

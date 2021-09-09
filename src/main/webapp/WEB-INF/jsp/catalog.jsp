@@ -47,15 +47,15 @@
             <div class="row g-2">
 
                 <div class="col">
-                    <form class="input-group" action="${pageContext.request.contextPath}" method="get">
+                    <form class="input-group" action="catalog" method="get">
                         <input name="q" type="text" class="form-control" placeholder="Search..." aria-label="Search">
                         <button class="btn btn-outline-secondary dropdown-toggle" type="button"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false">Search by
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}">Title</a></li>
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}">Author</a></li>
+                            <li><a class="dropdown-item" href="catalog">Title</a></li>
+                            <li><a class="dropdown-item" href="catalog">Author</a></li>
                         </ul>
                         <button class="btn btn-outline-secondary" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -71,10 +71,10 @@
                             aria-expanded="false">Sort by
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}">Title</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}">Author</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}">Publisher</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}">Year</a></li>
+                        <li><a class="dropdown-item" href="catalog">Title</a></li>
+                        <li><a class="dropdown-item" href="catalog">Author</a></li>
+                        <li><a class="dropdown-item" href="catalog">Publisher</a></li>
+                        <li><a class="dropdown-item" href="catalog">Year</a></li>
                     </ul>
                 </div>
 
@@ -119,8 +119,6 @@
 </main>
 
 <%@ include file="footer.jspf"%>
-
-<script src="dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

@@ -7,7 +7,8 @@
     <title>Add book</title>
 
     <link href="css/new-book.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <style>
         @media (min-width: 768px) {
@@ -38,7 +39,8 @@
         </div>
 
         <div class="form-floating">
-            <input name="year" type="number" min="0" max="9999" class="form-control" id="year" placeholder="Publication year">
+            <input name="year" type="number" min="0" max="9999" class="form-control" id="year"
+                   placeholder="Publication year">
             <label for="year">Publication year</label>
         </div>
 

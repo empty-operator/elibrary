@@ -9,7 +9,8 @@
     <title>Loans</title>
 
     <link href="css/loans.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <style>
         @media (min-width: 768px) {
@@ -21,7 +22,7 @@
 
 <main>
 
-    <%@ include file="header.jspf"%>
+    <%@ include file="header.jspf" %>
 
     <div class="py-5 bg-light">
         <div class="container">
@@ -49,7 +50,8 @@
                             <td>${user.banned ? "Yes" : "No"}</td>
                             <td><c:out value="fine"/></td>
                             <td>
-                                <form class="form-loan d-flex align-items-center justify-content-between" action="UserManagementServlet"
+                                <form class="form-loan d-flex align-items-center justify-content-between"
+                                      action="UserManagementServlet"
                                       method="post">
                                     <input name="user-id" type="hidden" value="${user.id}">
                                     <c:if test="${user.role eq Role.READER}">
@@ -58,7 +60,8 @@
                                         </button>
                                     </c:if>
                                     <c:if test="${user.role eq Role.LIBRARIAN}">
-                                        <button name="action" value="make-reader" type="submit" class="btn btn-primary w-50">
+                                        <button name="action" value="make-reader" type="submit"
+                                                class="btn btn-primary w-50">
                                             Make reader
                                         </button>
                                     </c:if>
@@ -67,7 +70,8 @@
                                         </button>
                                     </c:if>
                                     <c:if test="${user.banned}">
-                                        <button name="action" value="unban" type="submit" class="btn btn-danger w-25">Unban
+                                        <button name="action" value="unban" type="submit" class="btn btn-danger w-25">
+                                            Unban
                                         </button>
                                     </c:if>
                                 </form>
@@ -83,7 +87,7 @@
 
 </main>
 
-<%@ include file="footer.jspf"%>
+<%@ include file="footer.jspf" %>
 
 </body>
 </html>

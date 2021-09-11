@@ -27,11 +27,8 @@ public class CatalogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            Map<Boolean, List<Book>> map = BookDao.getInstance().getAll().stream()
-                                                  .collect(Collectors.partitioningBy(x -> x.getAmount() == 0));
-            request.setAttribute("list_of_books", Stream.concat(map.get(false).stream().sorted(Comparator.comparing(Book::getTitle)),
-                                                                map.get(true).stream().sorted(Comparator.comparing(Book::getTitle)))
-                                                        .collect(Collectors.toList()));
+            request.setAttribute("list_of_books", filterBooks(BookDao.getInstance().getAll(), request.getParameter("q"),
+                    request.getParameter("search-by"), request.getParameter("sort-by")));
             request.getRequestDispatcher("/WEB-INF/jsp/catalog.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             // TODO: 25.08.2021 error handling
@@ -41,6 +38,50 @@ public class CatalogServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    private static List<Book> filterBooks(List<Book> books, String query, String searchBy, String sortBy) {
+        Map<Boolean, List<Book>> map;
+        if (query != null && searchBy != null) {
+            switch (searchBy) {
+                case "title":
+                    map = books.stream()
+                               .filter(x -> x.getTitle().contains(query))
+                               .collect(Collectors.partitioningBy(x -> x.getAmount() == 0));
+                    break;
+                case "author":
+                    map = books.stream()
+                               .filter(x -> x.getAuthor().contains(query))
+                               .collect(Collectors.partitioningBy(x -> x.getAmount() == 0));
+                    break;
+                default:
+                    map = books.stream().collect(Collectors.partitioningBy(x -> x.getAmount() == 0));
+            }
+        } else {
+            map = books.stream().collect(Collectors.partitioningBy(x -> x.getAmount() == 0));
+        }
+        Comparator<Book> comparator;
+        if (sortBy != null) {
+            switch (sortBy) {
+                default:
+                case "title":
+                    comparator = Comparator.comparing(Book::getTitle);
+                    break;
+                case "author":
+                    comparator = Comparator.comparing(Book::getAuthor);
+                    break;
+                case "publisher":
+                    comparator = Comparator.comparing(Book::getPublisher);
+                    break;
+                case "year":
+                    comparator = Comparator.comparing(Book::getYear).reversed();
+                    break;
+            }
+        } else {
+            comparator = Comparator.comparing(Book::getTitle);
+        }
+        return Stream.concat(map.get(false).stream().sorted(comparator), map.get(true).stream().sorted(comparator))
+                     .collect(Collectors.toList());
     }
 
 }

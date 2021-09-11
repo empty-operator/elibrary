@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" import="org.elibrary.entity.Role" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -10,7 +10,8 @@
     <title>Catalog</title>
 
     <link href="css/catalog.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <style>
         @media (min-width: 768px) {
@@ -22,7 +23,7 @@
 
 <main>
 
-    <%@ include file="header.jspf"%>
+    <%@ include file="header.jspf" %>
 
     <c:if test="${empty sessionScope.user}">
         <section class="py-5 text-center container">
@@ -44,45 +45,29 @@
     <div class="py-5 bg-light">
         <div class="container">
 
-            <div class="row g-2">
-
-                <div class="col">
-                    <form class="input-group" action="catalog" method="get">
-                        <input name="q" type="text" class="form-control" placeholder="Search..." aria-label="Search">
-                        <select class="form-select" name="search-by" aria-label="Search by">
-                            <option value="" hidden>Search by</option>
-                            <option value="title">Title</option>
-                            <option value="author">Author</option>
-                        </select>
-                        <select class="form-select w-25" name="sort-by" aria-label="Sort by">
-                            <option value="" hidden>Sort by</option>
-                            <option value="title">Title</option>
-                            <option value="author">Author</option>
-                            <option value="publisher">Publisher</option>
-                            <option value="year">Year</option>
-                        </select>
-                        <button class="btn btn-outline-secondary" type="submit">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                            </svg>
-                        </button>
-                    </form>
-                </div>
-
-<%--                <div class="col-auto">--%>
-<%--                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"--%>
-<%--                            aria-expanded="false" aria-selected="${param['sort-by']}">Sort by--%>
-<%--                    </button>--%>
-<%--                    <ul class="dropdown-menu">--%>
-<%--                        <li><a class="dropdown-item" href="catalog?q=${param.q}&search-by=${param['search-by']}&sort-by=title">Title</a></li>--%>
-<%--                        <li><a class="dropdown-item" href="catalog?q=${param.q}&search-by=${param['search-by']}&sort-by=author">Author</a></li>--%>
-<%--                        <li><a class="dropdown-item" href="catalog?q=${param.q}&search-by=${param['search-by']}&sort-by=publisher">Publisher</a></li>--%>
-<%--                        <li><a class="dropdown-item" href="catalog?q=${param.q}&search-by=${param['search-by']}&sort-by=year">Year</a></li>--%>
-<%--                    </ul>--%>
-<%--                </div>--%>
-
-            </div>
+            <form class="input-group" action="catalog" method="get">
+                <input value="${param.q}" name="q" type="text" class="form-control w-50" placeholder="Search..."
+                       aria-label="Search">
+                <select id="search-by" class="form-select" name="search-by" aria-label="Search by">
+                    <option value="" hidden>Search by</option>
+                    <option value="title">Title</option>
+                    <option value="author">Author</option>
+                </select>
+                <select id="sort-by" class="form-select" onchange="this.form.submit()" name="sort-by"
+                        aria-label="Sort by">
+                    <option value="" hidden>Sort by</option>
+                    <option value="title">Title</option>
+                    <option value="author">Author</option>
+                    <option value="publisher">Publisher</option>
+                    <option value="year">Year</option>
+                </select>
+                <button class="btn btn-outline-secondary" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </form>
 
             <div class="row row-cols-4 g-3">
 
@@ -122,7 +107,11 @@
 
 </main>
 
-<%@ include file="footer.jspf"%>
+<%@ include file="footer.jspf" %>
+<script>
+    document.getElementById('search-by').value = '${param['search-by']}'
+    document.getElementById('sort-by').value = '${param['sort-by']}'
+</script>
 
 </body>
 </html>

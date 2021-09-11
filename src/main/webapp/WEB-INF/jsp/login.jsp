@@ -7,7 +7,8 @@
     <title>Log in</title>
 
     <link href="css/login.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <style>
         @media (min-width: 768px) {
@@ -19,7 +20,6 @@
 
 <main class="form-login">
     <form action="LogInServlet" method="post">
-<%--        <img class="mb-4" src="img/logo.svg" width="64" height="64" alt="logo">--%>
         <h1 class="h3 mb-3 fw-normal">Log in</h1>
 
         <div class="form-floating">
@@ -34,7 +34,7 @@
 
         <div class="checkbox mb-3">
             <label>
-                <input name="remember-me" type="checkbox">Remember me
+                <input name="remember-me" type="checkbox"> Remember me
             </label>
         </div>
 

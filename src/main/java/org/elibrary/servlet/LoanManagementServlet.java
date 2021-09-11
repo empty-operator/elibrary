@@ -31,7 +31,7 @@ public class LoanManagementServlet extends HttpServlet {
         String action = request.getParameter("action");
         try {
             LoanDao loanDao = LoanDao.getInstance();
-            Loan loan = loanDao.get(Integer.parseInt(request.getParameter("loan_id")));
+            Loan loan = loanDao.get(Integer.parseInt(request.getParameter("loan-id")));
             switch (action) {
                 case "approve":
                     loan.setLoanedAt(new Timestamp(System.currentTimeMillis()));
@@ -45,7 +45,7 @@ public class LoanManagementServlet extends HttpServlet {
                     break;
             }
             loanDao.update(loan);
-            response.sendRedirect("LoansServlet");
+            response.sendRedirect("loans");
         } catch (SQLException | NamingException | ParseException e) {
             // TODO: 04.09.2021 error handling
             LOG.error("Cannot update loan", e);

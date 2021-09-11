@@ -9,7 +9,7 @@
     <title>Loans</title>
 
     <link href="css/loans.css" rel="stylesheet">
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <style>
         @media (min-width: 768px) {
@@ -32,6 +32,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Book title</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Fine</th>
                     <th scope="col">Manage</th>
                 </tr>
                 </thead>
@@ -45,20 +46,38 @@
                                 <td>
                                     Rejected
                                 </td>
-                                <td></td>
                             </c:when>
                             <c:when test="${empty loan.loanedAt}">
                                 <td>
                                     In process
                                 </td>
+                            </c:when>
+                            <c:when test="${empty loan.returnedAt}">
                                 <td>
-                                    <form action="LoanManagementServlet" class="form-loan d-flex align-items-center justify-content-between" method="post">
-                                        <input name="loan_id" type="hidden" value="${loan.id}">
+                                    Issued
+                                </td>
+                            </c:when>
+                            <c:otherwise>
+                                <td>
+                                    Returned
+                                </td>
+                            </c:otherwise>
+                        </c:choose>
+                        <td class="text-danger"><c:out value="${loan.getFine()}"/></td>
+                        <c:choose>
+                            <c:when test="${empty loan.loanedAt}">
+                                <td>
+                                    <form action="LoanManagementServlet"
+                                          class="form-loan d-flex align-items-center justify-content-between"
+                                          method="post">
+                                        <input name="loan-id" type="hidden" value="${loan.id}">
                                         <div>
-                                            <input name="date" type="date" class="form-control" id="date" placeholder="Date">
+                                            <input name="date" type="date" class="form-control" id="date"
+                                                   placeholder="Date">
                                             <label for="date" hidden>Date</label>
                                         </div>
-                                        <button class="w-25 btn btn-success" type="submit" name="action" value="approve">
+                                        <button class="w-25 btn btn-success" type="submit" name="action"
+                                                value="approve">
                                             Approve
                                         </button>
                                         <button class="w-25 btn btn-danger" type="submit" name="action" value="reject">
@@ -69,21 +88,16 @@
                             </c:when>
                             <c:when test="${empty loan.returnedAt}">
                                 <td>
-                                    Issued
-                                </td>
-                                <td>
                                     <form action="LoanManagementServlet" class="form-loan" method="post">
-                                        <input name="loan_id" type="hidden" value="${loan.id}">
-                                        <button class="btn btn-primary float-end" type="submit" name="action" value="return">
+                                        <input name="loan-id" type="hidden" value="${loan.id}">
+                                        <button class="btn btn-primary float-end" type="submit" name="action"
+                                                value="return">
                                             Return
                                         </button>
                                     </form>
                                 </td>
                             </c:when>
                             <c:otherwise>
-                                <td>
-                                    Returned
-                                </td>
                                 <td></td>
                             </c:otherwise>
                         </c:choose>
@@ -97,7 +111,7 @@
 
 </main>
 
-<%@ include file="footer.jspf"%>
+<%@ include file="footer.jspf" %>
 
 </body>
 </html>

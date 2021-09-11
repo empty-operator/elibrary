@@ -10,7 +10,7 @@
     <title>Catalog</title>
 
     <link href="css/catalog.css" rel="stylesheet">
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <style>
         @media (min-width: 768px) {
@@ -49,14 +49,18 @@
                 <div class="col">
                     <form class="input-group" action="catalog" method="get">
                         <input name="q" type="text" class="form-control" placeholder="Search..." aria-label="Search">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false">Search by
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="catalog">Title</a></li>
-                            <li><a class="dropdown-item" href="catalog">Author</a></li>
-                        </ul>
+                        <select class="form-select" name="search-by" aria-label="Search by">
+                            <option value="" hidden>Search by</option>
+                            <option value="title">Title</option>
+                            <option value="author">Author</option>
+                        </select>
+                        <select class="form-select w-25" name="sort-by" aria-label="Sort by">
+                            <option value="" hidden>Sort by</option>
+                            <option value="title">Title</option>
+                            <option value="author">Author</option>
+                            <option value="publisher">Publisher</option>
+                            <option value="year">Year</option>
+                        </select>
                         <button class="btn btn-outline-secondary" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-search" viewBox="0 0 16 16">
@@ -66,17 +70,17 @@
                     </form>
                 </div>
 
-                <div class="col-auto">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">Sort by
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="catalog">Title</a></li>
-                        <li><a class="dropdown-item" href="catalog">Author</a></li>
-                        <li><a class="dropdown-item" href="catalog">Publisher</a></li>
-                        <li><a class="dropdown-item" href="catalog">Year</a></li>
-                    </ul>
-                </div>
+<%--                <div class="col-auto">--%>
+<%--                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"--%>
+<%--                            aria-expanded="false" aria-selected="${param['sort-by']}">Sort by--%>
+<%--                    </button>--%>
+<%--                    <ul class="dropdown-menu">--%>
+<%--                        <li><a class="dropdown-item" href="catalog?q=${param.q}&search-by=${param['search-by']}&sort-by=title">Title</a></li>--%>
+<%--                        <li><a class="dropdown-item" href="catalog?q=${param.q}&search-by=${param['search-by']}&sort-by=author">Author</a></li>--%>
+<%--                        <li><a class="dropdown-item" href="catalog?q=${param.q}&search-by=${param['search-by']}&sort-by=publisher">Publisher</a></li>--%>
+<%--                        <li><a class="dropdown-item" href="catalog?q=${param.q}&search-by=${param['search-by']}&sort-by=year">Year</a></li>--%>
+<%--                    </ul>--%>
+<%--                </div>--%>
 
             </div>
 
@@ -95,8 +99,8 @@
                                 <li class="list-group-item"><c:out value="${book.year}"/></li>
                             </ul>
                             <div class="card-footer">
-                                <form class="form-loan d-flex align-items-center" action="NewLoanServlet" method="post">
-                                    <input name="book_id" type="hidden" value="${book.id}">
+                                <form class="form-loan d-flex align-items-center" action="new-loan" method="post">
+                                    <input name="book-id" type="hidden" value="${book.id}">
                                     <c:if test="${book.amount eq 0}">
                                         <button type="submit" class="btn btn-primary disabled">Borrow</button>
                                         <small class="text-muted">Not available</small>

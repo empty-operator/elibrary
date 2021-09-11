@@ -26,13 +26,13 @@ body {
     z-index: 2;
 }
 
-.form-signup input[id="first_name"] {
+.form-signup input[id="first-name"] {
     margin-bottom: -1px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-.form-signup input[id="last_name"] {
+.form-signup input[id="last-name"] {
     margin-bottom: -1px;
     border-radius: 0;
 }

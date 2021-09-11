@@ -8,7 +8,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "LogOutServlet", value = "/LogOutServlet")
+@WebServlet(name = "LogOutServlet", value = "/logout")
 public class LogOutServlet extends HttpServlet {
 
     private static final Logger LOG = LogManager.getLogger(LogOutServlet.class);

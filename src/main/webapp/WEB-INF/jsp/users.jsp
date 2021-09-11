@@ -9,7 +9,7 @@
     <title>Loans</title>
 
     <link href="css/loans.css" rel="stylesheet">
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <style>
         @media (min-width: 768px) {
@@ -51,7 +51,7 @@
                             <td>
                                 <form class="form-loan d-flex align-items-center justify-content-between" action="UserManagementServlet"
                                       method="post">
-                                    <input name="user_id" type="hidden" value="${user.id}">
+                                    <input name="user-id" type="hidden" value="${user.id}">
                                     <c:if test="${user.role eq Role.READER}">
                                         <button name="action" value="make-librarian" type="submit"
                                                 class="btn btn-primary w-50">Make librarian

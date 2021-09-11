@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(name = "LoansServlet", value = "/LoansServlet")
+@WebServlet(name = "LoansServlet", value = "/loans")
 public class LoansServlet extends HttpServlet {
 
     private static final Logger LOG = LogManager.getLogger(LoansServlet.class);
@@ -22,7 +22,7 @@ public class LoansServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             request.setAttribute("list_of_loans", LoanDao.getInstance().getAll());
-            request.getRequestDispatcher("WEB-INF/jsp/loans.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/jsp/loans.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             // TODO: 25.08.2021 error handling
             LOG.error("Cannot get loans", e);

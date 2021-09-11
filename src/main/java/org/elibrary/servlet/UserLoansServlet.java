@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(name = "UserLoansServlet", value = "/UserLoansServlet")
+@WebServlet(name = "UserLoansServlet", value = "/user-loans")
 public class UserLoansServlet extends HttpServlet {
 
     private static final Logger LOG = LogManager.getLogger(UserLoansServlet.class);
@@ -28,7 +28,7 @@ public class UserLoansServlet extends HttpServlet {
         }
         try {
             request.setAttribute("list_of_loans", LoanDao.getInstance().getAll(user.getId()));
-            request.getRequestDispatcher("WEB-INF/jsp/user-loans.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/jsp/user-loans.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             // TODO: 25.08.2021 error handling
             LOG.error("Cannot get loans", e);

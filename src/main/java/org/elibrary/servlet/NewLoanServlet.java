@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(name = "NewLoanServlet", value = "/NewLoanServlet")
+@WebServlet(name = "NewLoanServlet", value = "/new-loan")
 public class NewLoanServlet extends HttpServlet {
 
     private static final Logger LOG = LogManager.getLogger(NewLoanServlet.class);
@@ -34,7 +34,7 @@ public class NewLoanServlet extends HttpServlet {
         Loan loan = new Loan();
         loan.setUser(user);
         try {
-            loan.setBook(BookDao.getInstance().get(Integer.parseInt(request.getParameter("book_id"))));
+            loan.setBook(BookDao.getInstance().get(Integer.parseInt(request.getParameter("book-id"))));
             LoanDao.getInstance().insert(loan);
             response.sendRedirect("catalog");
         } catch (SQLException | NamingException e) {

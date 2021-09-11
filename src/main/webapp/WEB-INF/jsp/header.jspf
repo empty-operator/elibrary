@@ -5,17 +5,17 @@
             <c:if test="${not empty sessionScope.user}">
                 <c:choose>
                     <c:when test="${sessionScope.user.role eq Role.READER}">
-                        <li class="nav-item"><a href="UserLoansServlet" class="nav-link">Loans</a></li>
+                        <li class="nav-item"><a href="user-loans" class="nav-link">Loans</a></li>
                     </c:when>
                     <c:when test="${sessionScope.user.role eq Role.LIBRARIAN}">
-                        <li class="nav-item"><a href="LoansServlet" class="nav-link">Loans</a></li>
+                        <li class="nav-item"><a href="loans" class="nav-link">Loans</a></li>
                     </c:when>
                     <c:when test="${sessionScope.user.role eq Role.ADMIN}">
-                        <li class="nav-item"><a href="UsersServlet" class="nav-link">Users</a></li>
+                        <li class="nav-item"><a href="users" class="nav-link">Users</a></li>
                         <li class="nav-item"><a href="new-book" class="nav-link">Add book</a></li>
                     </c:when>
                 </c:choose>
-                <li class="float-end nav-item"><a href="LogOutServlet" class="nav-link">Log out</a></li>
+                <li class="float-end nav-item"><a href="logout" class="nav-link">Log out</a></li>
             </c:if>
         </ul>
     </header>

@@ -27,7 +27,7 @@ public class UserManagementServlet extends HttpServlet {
         String action = request.getParameter("action");
         try {
             UserDao userDao = UserDao.getInstance();
-            User user = userDao.get(Integer.parseInt(request.getParameter("user_id")));
+            User user = userDao.get(Integer.parseInt(request.getParameter("user-id")));
             switch (action) {
                 case "ban":
                     user.setBanned(true);
@@ -43,7 +43,7 @@ public class UserManagementServlet extends HttpServlet {
                     break;
             }
             userDao.update(user);
-            response.sendRedirect("UsersServlet");
+            response.sendRedirect("users");
         } catch (SQLException | NamingException e) {
             // TODO: 08.09.2021 error handling
             LOG.error("Cannot update user", e);

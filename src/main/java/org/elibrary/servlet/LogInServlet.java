@@ -18,7 +18,8 @@ public class LogInServlet extends HttpServlet {
     private static final Logger LOG = LogManager.getLogger(LogInServlet.class);
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect("catalog");
     }
 
     @Override

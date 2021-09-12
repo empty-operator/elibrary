@@ -73,15 +73,15 @@ public class Loan implements Serializable {
         this.rejected = rejected;
     }
 
-    public String getFine() {
+    public long getFine() {
         if (dueDate == null || returnedAt != null) {
-            return "";
+            return 0;
         }
         long days = Duration.between(dueDate.toLocalDateTime(), LocalDateTime.now()).toDays();
         if (days > 0) {
-            return "$" + days * FINE_AMOUNT_PER_DAY;
+            return days * FINE_AMOUNT_PER_DAY;
         }
-        return "";
+        return 0;
     }
 
 }

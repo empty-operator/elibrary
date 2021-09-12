@@ -1,21 +1,29 @@
 <div class="container" style="margin-left: 100px; margin-right: 100px">
     <header class="d-flex justify-content-center py-3">
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="catalog" class="nav-link active" aria-current="page">Catalog</a></li>
+            <li class="nav-item"><a href="catalog" class="nav-link" aria-current="page">Catalog</a></li>
             <c:if test="${not empty sessionScope.user}">
-                <c:choose>
-                    <c:when test="${sessionScope.user.role eq Role.READER}">
-                        <li class="nav-item"><a href="user-loans" class="nav-link">Loans</a></li>
-                    </c:when>
-                    <c:when test="${sessionScope.user.role eq Role.LIBRARIAN}">
-                        <li class="nav-item"><a href="loans" class="nav-link">Loans</a></li>
-                    </c:when>
-                    <c:when test="${sessionScope.user.role eq Role.ADMIN}">
-                        <li class="nav-item"><a href="users" class="nav-link">Users</a></li>
-                        <li class="nav-item"><a href="new-book" class="nav-link">Add book</a></li>
-                    </c:when>
-                </c:choose>
-                <li class="float-end nav-item"><a href="logout" class="nav-link">Log out</a></li>
+                <c:if test="${not sessionScope.user.banned}">
+                    <c:choose>
+                        <c:when test="${sessionScope.user.role eq Role.READER}">
+                            <li class="nav-item">
+                                <a onmouseover="this.style.cursor='pointer'" onclick="document.getElementById('form').submit()" class="nav-link">Loans</a>
+                                <form id="form" action="user-loans" method="post" hidden>
+                                    <input name="user_id" value="${sessionScope.user.id}">
+                                </form>
+                            </li>
+                        </c:when>
+                        <c:when test="${sessionScope.user.role eq Role.LIBRARIAN}">
+                            <li class="nav-item"><a href="users" class="nav-link">Users</a></li>
+                            <li class="nav-item"><a href="loans" class="nav-link">Loans</a></li>
+                        </c:when>
+                        <c:when test="${sessionScope.user.role eq Role.ADMIN}">
+                            <li class="nav-item"><a href="users" class="nav-link">Users</a></li>
+                            <li class="nav-item"><a href="new-book" class="nav-link">Add book</a></li>
+                        </c:when>
+                    </c:choose>
+                </c:if>
+                <li class="nav-item"><a href="logout" class="nav-link">Log out</a></li>
             </c:if>
         </ul>
     </header>

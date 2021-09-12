@@ -4,19 +4,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.87.0">
     <title>Catalog</title>
 
     <link href="css/catalog.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <style>
-        @media (min-width: 768px) {
-        }
-    </style>
 
 </head>
 <body>
@@ -91,7 +83,12 @@
                                         <small class="text-muted">Not available</small>
                                     </c:if>
                                     <c:if test="${not (book.amount eq 0)}">
-                                        <button type="submit" class="btn btn-primary">Borrow</button>
+                                        <c:if test="${not sessionScope.user.banned}">
+                                            <button type="submit" class="btn btn-primary">Borrow</button>
+                                        </c:if>
+                                        <c:if test="${sessionScope.user.banned}">
+                                            <button type="submit" class="btn btn-primary disabled">Borrow</button>
+                                        </c:if>
                                         <small class="text-muted"><c:out value="${book.getAmountString()}"/></small>
                                     </c:if>
                                 </form>

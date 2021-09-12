@@ -21,7 +21,8 @@ public class NewLoanServlet extends HttpServlet {
     private static final Logger LOG = LogManager.getLogger(NewLoanServlet.class);
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect("catalog");
     }
 
     @Override

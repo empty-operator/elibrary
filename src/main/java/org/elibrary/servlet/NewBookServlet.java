@@ -19,7 +19,8 @@ public class NewBookServlet extends HttpServlet {
     private static final Logger LOG = LogManager.getLogger(NewBookServlet.class);
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect("catalog");
     }
 
     @Override
@@ -36,7 +37,7 @@ public class NewBookServlet extends HttpServlet {
             // TODO: 24.08.2021 error handling
             LOG.error("Cannot insert book" + e);
         }
-        response.sendRedirect("new-book");
+        response.sendRedirect("catalog");
     }
 
 }

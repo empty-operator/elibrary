@@ -1,6 +1,10 @@
 package org.elibrary.entity;
 
+import org.elibrary.dao.LoanDao;
+
+import javax.naming.NamingException;
 import java.io.Serializable;
+import java.sql.SQLException;
 
 public class User implements Serializable {
 
@@ -66,6 +70,10 @@ public class User implements Serializable {
 
     public void setBanned(boolean banned) {
         this.banned = banned;
+    }
+
+    public long getTotalFine() throws SQLException, NamingException {
+        return LoanDao.getInstance().getAll(id).stream().mapToLong(Loan::getFine).sum();
     }
 
 }

@@ -3,19 +3,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.87.0">
     <title>Loans</title>
 
     <link href="css/loans.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <style>
-        @media (min-width: 768px) {
-        }
-    </style>
 
 </head>
 <body>
@@ -33,22 +25,38 @@
                     <th scope="col">First name</th>
                     <th scope="col">Last name</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Role</th>
+                    <c:if test="${sessionScope.user.role eq Role.ADMIN}">
+                        <th scope="col">Role</th>
+                    </c:if>
                     <th scope="col">Banned</th>
-                    <th scope="col">Fine</th>
+                    <th scope="col">Total fine</th>
                     <th scope="col">Manage</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${requestScope.list_of_users}" var="user">
-                    <c:if test="${not (user.role eq Role.ADMIN)}">
-                        <tr>
-                            <td><c:out value="${user.firstName}"/></td>
-                            <td><c:out value="${user.lastName}"/></td>
-                            <td><c:out value="${user.email}"/></td>
+                    <tr>
+                        <td><c:out value="${user.firstName}"/></td>
+                        <td><c:out value="${user.lastName}"/></td>
+                        <td><c:out value="${user.email}"/></td>
+                        <c:if test="${sessionScope.user.role eq Role.ADMIN}">
                             <td><c:out value="${user.role}"/></td>
-                            <td>${user.banned ? "Yes" : "No"}</td>
-                            <td><c:out value="fine"/></td>
+                        </c:if>
+                        <td>${user.banned ? "Yes" : "No"}</td>
+                        <td class="text-danger">
+                            <c:if test="${user.getTotalFine() gt 0}">
+                                <c:out value="$${user.getTotalFine()}"/>
+                            </c:if>
+                        </td>
+                        <c:if test="${sessionScope.user.role eq Role.LIBRARIAN}">
+                            <td>
+                                <a class="btn btn-primary" onclick="document.getElementById('form').submit()">Loans</a>
+                                <form id="form" action="user-loans" method="post" hidden>
+                                    <input name="user_id" value="${user.id}">
+                                </form>
+                            </td>
+                        </c:if>
+                        <c:if test="${sessionScope.user.role eq Role.ADMIN}">
                             <td>
                                 <form class="form-loan d-flex align-items-center justify-content-between"
                                       action="UserManagementServlet"
@@ -56,12 +64,12 @@
                                     <input name="user-id" type="hidden" value="${user.id}">
                                     <c:if test="${user.role eq Role.READER}">
                                         <button name="action" value="make-librarian" type="submit"
-                                                class="btn btn-primary w-50">Make librarian
+                                                class="btn btn-primary w-auto">Make librarian
                                         </button>
                                     </c:if>
                                     <c:if test="${user.role eq Role.LIBRARIAN}">
                                         <button name="action" value="make-reader" type="submit"
-                                                class="btn btn-primary w-50">
+                                                class="btn btn-primary w-auto">
                                             Make reader
                                         </button>
                                     </c:if>
@@ -76,8 +84,8 @@
                                     </c:if>
                                 </form>
                             </td>
-                        </tr>
-                    </c:if>
+                        </c:if>
+                    </tr>
                 </c:forEach>
                 </tbody>
             </table>

@@ -20,23 +20,18 @@ public class UserLoansServlet extends HttpServlet {
     private static final Logger LOG = LogManager.getLogger(UserLoansServlet.class);
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
-            response.sendRedirect("login");
-            return;
-        }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            request.setAttribute("list_of_loans", LoanDao.getInstance().getAll(user.getId()));
+            request.setAttribute("list_of_loans", LoanDao.getInstance().getAll(Integer.parseInt(request.getParameter("user_id"))));
             request.getRequestDispatcher("/WEB-INF/jsp/user-loans.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             // TODO: 25.08.2021 error handling
             LOG.error("Cannot get loans", e);
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
     }
 
 }

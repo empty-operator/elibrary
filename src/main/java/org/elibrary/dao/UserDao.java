@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao {
+public class UserDao implements Dao<User> {
 
     private static UserDao instance;
     private static final String INSERT_USER = "INSERT INTO \"user\" (first_name, last_name, email, password, role_id) VALUES (?, ?, ?, ?, ?)";
@@ -27,6 +27,7 @@ public class UserDao {
         return instance;
     }
 
+    @Override
     public User get(int id) throws SQLException, NamingException {
         User user = new User();
         try (Connection connection = DBManager.getConnection();
@@ -67,6 +68,7 @@ public class UserDao {
         return user;
     }
 
+    @Override
     public List<User> getAll() throws SQLException, NamingException {
         List<User> users = new ArrayList<>();
         try (Connection connection = DBManager.getConnection();
@@ -87,6 +89,7 @@ public class UserDao {
         return users;
     }
 
+    @Override
     public void insert(User user) throws SQLException, NamingException {
         try (Connection connection = DBManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_USER, Statement.RETURN_GENERATED_KEYS)) {
@@ -105,6 +108,7 @@ public class UserDao {
         }
     }
 
+    @Override
     public void update(User user) throws SQLException, NamingException {
         try (Connection connection = DBManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_USER)) {

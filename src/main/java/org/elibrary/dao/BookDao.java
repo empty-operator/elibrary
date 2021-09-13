@@ -7,10 +7,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookDao {
+public class BookDao implements Dao<Book> {
 
     private static BookDao instance;
     private static final String INSERT_BOOK = "INSERT INTO book (title, author, publisher, year, amount) VALUES (?, ?, ?, ?, ?)";
+    private static final String UPDATE_BOOK = "UPDATE book SET title=(?), author=(?), publisher=(?), year=(?), amount=(?) WHERE id=(?)";
     private static final String GET_BOOKS = "SELECT * FROM book";
     private static final String GET_BOOK_BY_ID = "SELECT title, author, publisher, year, amount FROM book WHERE id=(?)";
 
@@ -24,6 +25,7 @@ public class BookDao {
         return instance;
     }
 
+    @Override
     public Book get(int id) throws SQLException, NamingException {
         Book book = new Book();
         try (Connection connection = DBManager.getConnection();
@@ -42,6 +44,7 @@ public class BookDao {
         return book;
     }
 
+    @Override
     public List<Book> getAll() throws SQLException, NamingException {
         ArrayList<Book> books = new ArrayList<>();
         try (Connection connection = DBManager.getConnection();
@@ -61,6 +64,7 @@ public class BookDao {
         return books;
     }
 
+    @Override
     public void insert(Book book) throws SQLException, NamingException {
         try (Connection connection = DBManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_BOOK, Statement.RETURN_GENERATED_KEYS)) {
@@ -77,6 +81,25 @@ public class BookDao {
                 }
             }
         }
+    }
+
+    @Override
+    public void update(Book book) throws Exception {
+        try (Connection connection = DBManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_BOOK)) {
+            statement.setString(1, book.getTitle());
+            statement.setString(2, book.getAuthor());
+            statement.setString(3, book.getPublisher());
+            statement.setInt(4, book.getYear());
+            statement.setInt(5, book.getAmount());
+            statement.setInt(6, book.getId());
+            statement.executeUpdate();
+        }
+    }
+
+    @Override
+    public void delete(Book book) throws Exception {
+
     }
 
 }

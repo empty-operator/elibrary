@@ -7,14 +7,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoanDao {
+public class LoanDao implements Dao<Loan> {
 
     private static LoanDao instance;
     private static final String INSERT_LOAN = "INSERT INTO loan (user_id, book_id) VALUES (?, ?)";
     private static final String UPDATE_LOAN = "UPDATE loan SET user_id=(?), book_id=(?), loaned_at=(?), returned_at=(?), rejected=(?), due_date=(?) WHERE id=(?)";
     private static final String GET_LOANS = "SELECT * FROM loan";
-    private static final String GET_USER_LOANS = "SELECT * FROM loan WHERE user_id=(?)";
     private static final String GET_LOAN_BY_ID = "SELECT user_id, book_id, loaned_at, returned_at, rejected, due_date FROM loan WHERE id=(?)";
+    private static final String GET_USER_LOANS = "SELECT * FROM loan WHERE user_id=(?)";
 
     private LoanDao() {
     }
@@ -26,6 +26,7 @@ public class LoanDao {
         return instance;
     }
 
+    @Override
     public Loan get(int id) throws SQLException, NamingException {
         Loan loan = new Loan();
         try (Connection connection = DBManager.getConnection();
@@ -46,6 +47,7 @@ public class LoanDao {
         return loan;
     }
 
+    @Override
     public List<Loan> getAll() throws SQLException, NamingException {
         ArrayList<Loan> loans = new ArrayList<>();
         try (Connection connection = DBManager.getConnection();
@@ -88,6 +90,7 @@ public class LoanDao {
         return loans;
     }
 
+    @Override
     public void insert(Loan loan) throws SQLException, NamingException {
         try (Connection connection = DBManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_LOAN, Statement.RETURN_GENERATED_KEYS)) {
@@ -103,6 +106,7 @@ public class LoanDao {
         }
     }
 
+    @Override
     public void update(Loan loan) throws SQLException, NamingException {
         try (Connection connection = DBManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_LOAN)) {

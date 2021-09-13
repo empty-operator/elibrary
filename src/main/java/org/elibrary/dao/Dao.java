@@ -3,9 +3,11 @@ package org.elibrary.dao;
 import java.util.List;
 
 public interface Dao<E> {
-    E get(int id);
-    List<E> getAll();
-    void insert(E e);
-    void update(E e);
-    void delete(E e);
+    E get(int id) throws Exception;
+    List<E> getAll() throws Exception;
+    void insert(E e) throws Exception;
+    void update(E e) throws Exception;
+    default void delete(E e) throws Exception {
+        throw new UnsupportedOperationException();
+    };
 }

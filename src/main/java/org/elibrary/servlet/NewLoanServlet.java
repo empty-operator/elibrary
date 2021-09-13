@@ -37,11 +37,11 @@ public class NewLoanServlet extends HttpServlet {
         try {
             loan.setBook(BookDao.getInstance().get(Integer.parseInt(request.getParameter("book-id"))));
             LoanDao.getInstance().insert(loan);
-            response.sendRedirect("catalog");
         } catch (SQLException | NamingException e) {
             // TODO: 27.08.2021 error handling
             LOG.error("Cannot insert book loan" + e);
         }
+        response.sendRedirect("catalog");
     }
 
 }

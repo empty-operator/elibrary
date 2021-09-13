@@ -7,7 +7,6 @@ import org.elibrary.entity.Role;
 import org.elibrary.entity.User;
 
 import javax.naming.NamingException;
-import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
@@ -24,7 +23,7 @@ public class UserManagementServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String action = request.getParameter("action");
         try {
             UserDao userDao = UserDao.getInstance();
@@ -44,11 +43,11 @@ public class UserManagementServlet extends HttpServlet {
                     break;
             }
             userDao.update(user);
-            response.sendRedirect("users");
         } catch (SQLException | NamingException e) {
             // TODO: 08.09.2021 error handling
             LOG.error("Cannot update user", e);
         }
+        response.sendRedirect("users");
     }
 
 }

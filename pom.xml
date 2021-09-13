@@ -14,8 +14,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <junit.version>5.7.1</junit.version>
-        <postgresql.version>42.2.23</postgresql.version>
+        <junit.version>5.7.2</junit.version>
+        <postgresql.version>42.2.23.jre7</postgresql.version>
         <log4j.version>2.14.1</log4j.version>
         <jstl.version>1.2</jstl.version>
         <jbcrypt.version>0.4</jbcrypt.version>

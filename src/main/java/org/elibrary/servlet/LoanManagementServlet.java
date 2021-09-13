@@ -6,16 +6,13 @@ import org.elibrary.dao.LoanDao;
 import org.elibrary.entity.Loan;
 
 import javax.naming.NamingException;
-import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @WebServlet(name = "LoanManagementServlet", value = "/LoanManagementServlet")
 public class LoanManagementServlet extends HttpServlet {

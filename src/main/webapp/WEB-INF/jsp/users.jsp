@@ -50,9 +50,9 @@
                         </td>
                         <c:if test="${sessionScope.user.role eq Role.LIBRARIAN}">
                             <td>
-                                <a class="btn btn-primary" onclick="document.getElementById('form').submit()">Loans</a>
-                                <form id="form" action="user-loans" method="post" hidden>
-                                    <input name="user_id" value="${user.id}">
+                                <form class="form-loan" action="user-loans" method="get">
+                                    <input name="user_id" value="${user.id}" hidden>
+                                    <input class="btn btn-primary" type="submit" value="Loans">
                                 </form>
                             </td>
                         </c:if>

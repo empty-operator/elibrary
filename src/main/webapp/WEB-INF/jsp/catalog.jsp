@@ -76,22 +76,31 @@
                                 <li class="list-group-item"><c:out value="${book.year}"/></li>
                             </ul>
                             <div class="card-footer">
-                                <form class="form-loan d-flex align-items-center" action="new-loan" method="post">
-                                    <input name="book-id" type="hidden" value="${book.id}">
-                                    <c:if test="${book.amount eq 0}">
-                                        <button type="submit" class="btn btn-primary disabled">Borrow</button>
-                                        <small class="text-muted">Not available</small>
-                                    </c:if>
-                                    <c:if test="${not (book.amount eq 0)}">
-                                        <c:if test="${not sessionScope.user.banned}">
-                                            <button type="submit" class="btn btn-primary">Borrow</button>
-                                        </c:if>
-                                        <c:if test="${sessionScope.user.banned}">
+                                <c:if test="${sessionScope.user.role eq Role.ADMIN}">
+                                    <form class="form-loan d-flex align-items-center" action="book-management" method="post">
+                                        <input name="book-id" type="hidden" value="${book.id}">
+                                        <button name="action" value="edit" type="submit" class="btn btn-primary">Edit</button>
+                                        <button name="action" value="delete" type="submit" class="btn btn-danger">Remove</button>
+                                    </form>
+                                </c:if>
+                                <c:if test="${not (sessionScope.user.role eq Role.ADMIN)}">
+                                    <form class="form-loan d-flex align-items-center" action="new-loan" method="post">
+                                        <input name="book-id" type="hidden" value="${book.id}">
+                                        <c:if test="${book.amount eq 0}">
                                             <button type="submit" class="btn btn-primary disabled">Borrow</button>
+                                            <small class="text-muted">Not available</small>
                                         </c:if>
-                                        <small class="text-muted"><c:out value="${book.getAmountString()}"/></small>
-                                    </c:if>
-                                </form>
+                                        <c:if test="${not (book.amount eq 0)}">
+                                            <c:if test="${not sessionScope.user.banned}">
+                                                <button type="submit" class="btn btn-primary">Borrow</button>
+                                            </c:if>
+                                            <c:if test="${sessionScope.user.banned}">
+                                                <button type="submit" class="btn btn-primary disabled">Borrow</button>
+                                            </c:if>
+                                            <small class="text-muted"><c:out value="${book.getAmountString()}"/></small>
+                                        </c:if>
+                                    </form>
+                                </c:if>
                             </div>
                         </div>
                     </div>

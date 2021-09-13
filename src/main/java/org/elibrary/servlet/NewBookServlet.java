@@ -31,8 +31,18 @@ public class NewBookServlet extends HttpServlet {
         book.setPublisher(request.getParameter("publisher"));
         book.setYear(Integer.parseInt(request.getParameter("year")));
         book.setAmount(Integer.parseInt(request.getParameter("amount")));
+        String action = request.getParameter("action");
         try {
-            BookDao.getInstance().insert(book);
+            BookDao bookDao = BookDao.getInstance();
+            switch (action) {
+                case "new":
+                    bookDao.insert(book);
+                    break;
+                case "edit":
+                    book.setId(Integer.parseInt(request.getParameter("book-id")));
+                    bookDao.update(book);
+                    break;
+            }
         } catch (SQLException | NamingException e) {
             // TODO: 24.08.2021 error handling
             LOG.error("Cannot insert book" + e);

@@ -7,7 +7,7 @@ public interface Dao<E> {
     List<E> getAll() throws Exception;
     void insert(E e) throws Exception;
     void update(E e) throws Exception;
-    default void delete(E e) throws Exception {
+    default void delete(int id) throws Exception {
         throw new UnsupportedOperationException();
     };
 }

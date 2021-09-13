@@ -12,6 +12,7 @@ public class BookDao implements Dao<Book> {
     private static BookDao instance;
     private static final String INSERT_BOOK = "INSERT INTO book (title, author, publisher, year, amount) VALUES (?, ?, ?, ?, ?)";
     private static final String UPDATE_BOOK = "UPDATE book SET title=(?), author=(?), publisher=(?), year=(?), amount=(?) WHERE id=(?)";
+    private static final String DELETE_BOOK = "DELETE FROM book WHERE id=(?)";
     private static final String GET_BOOKS = "SELECT * FROM book";
     private static final String GET_BOOK_BY_ID = "SELECT title, author, publisher, year, amount FROM book WHERE id=(?)";
 
@@ -84,7 +85,7 @@ public class BookDao implements Dao<Book> {
     }
 
     @Override
-    public void update(Book book) throws Exception {
+    public void update(Book book) throws SQLException, NamingException {
         try (Connection connection = DBManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_BOOK)) {
             statement.setString(1, book.getTitle());
@@ -98,8 +99,12 @@ public class BookDao implements Dao<Book> {
     }
 
     @Override
-    public void delete(Book book) throws Exception {
-
+    public void delete(int id) throws SQLException, NamingException {
+        try (Connection connection = DBManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(DELETE_BOOK)) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        }
     }
 
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -27,8 +27,12 @@ public class CatalogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            request.setAttribute("list_of_books", filterBooks(BookDao.getInstance().getAll(), request.getParameter("q"),
-                    request.getParameter("search-by"), request.getParameter("sort-by")));
+            request.setAttribute("list_of_books", filterBooks(request.getParameter("q"),
+                                                request.getParameter("search-by"),
+                                                request.getParameter("sort-by"),
+                                                request.getParameter("page")));
+            System.out.println(BookDao.getInstance().countBooks());
+            request.setAttribute("amount_of_books", BookDao.getInstance().countBooks());
             request.getRequestDispatcher("/WEB-INF/jsp/catalog.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             // TODO: 25.08.2021 error handling
@@ -40,48 +44,24 @@ public class CatalogServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
     }
 
-    private static List<Book> filterBooks(List<Book> books, String query, String searchBy, String sortBy) {
-        Map<Boolean, List<Book>> map;
-        if (query != null && searchBy != null) {
-            switch (searchBy) {
-                case "title":
-                    map = books.stream()
-                               .filter(x -> x.getTitle().contains(query))
-                               .collect(Collectors.partitioningBy(x -> x.getAmount() == 0));
-                    break;
-                case "author":
-                    map = books.stream()
-                               .filter(x -> x.getAuthor().contains(query))
-                               .collect(Collectors.partitioningBy(x -> x.getAmount() == 0));
-                    break;
-                default:
-                    map = books.stream().collect(Collectors.partitioningBy(x -> x.getAmount() == 0));
-            }
-        } else {
-            map = books.stream().collect(Collectors.partitioningBy(x -> x.getAmount() == 0));
+    private static List<Book> filterBooks(String query, String searchBy, String sortBy, String page) throws SQLException, NamingException {
+        List<String> allowed = Arrays.asList("title", "author", "publisher", "year");
+        if (query == null) {
+            query = "";
         }
-        Comparator<Book> comparator;
-        if (sortBy != null) {
-            switch (sortBy) {
-                default:
-                case "title":
-                    comparator = Comparator.comparing(Book::getTitle);
-                    break;
-                case "author":
-                    comparator = Comparator.comparing(Book::getAuthor);
-                    break;
-                case "publisher":
-                    comparator = Comparator.comparing(Book::getPublisher);
-                    break;
-                case "year":
-                    comparator = Comparator.comparing(Book::getYear).reversed();
-                    break;
-            }
-        } else {
-            comparator = Comparator.comparing(Book::getTitle);
+        if (!allowed.contains(searchBy)) {
+            searchBy = "title";
         }
-        return Stream.concat(map.get(false).stream().sorted(comparator), map.get(true).stream().sorted(comparator))
-                     .collect(Collectors.toList());
+        if (!allowed.contains(sortBy)) {
+            sortBy = "title";
+        }
+        List<Book> books;
+        try {
+            books = BookDao.getInstance().getAll(query, searchBy, sortBy, Integer.parseInt(page));
+        } catch (NumberFormatException e) {
+            books = BookDao.getInstance().getAll(query, searchBy, sortBy, 1);
+        }
+        return books;
     }
 
 }

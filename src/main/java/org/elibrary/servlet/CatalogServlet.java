@@ -15,24 +15,25 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @WebServlet(name = "CatalogServlet", value = "/catalog")
 public class CatalogServlet extends HttpServlet {
 
     private static final Logger LOG = LogManager.getLogger(CatalogServlet.class);
+    private static final List<String> allowed = Arrays.asList("title", "author", "publisher", "year");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String query = request.getParameter("q");
+        String searchBy = request.getParameter("search-by");
+        String sortBy = request.getParameter("sort-by");
+        String page = request.getParameter("page");
+        query = query == null ? "" : query;
+        searchBy = allowed.contains(searchBy) ? searchBy : "title";
+        sortBy = allowed.contains(sortBy) ? sortBy : "title";
         try {
-            request.setAttribute("list_of_books", filterBooks(request.getParameter("q"),
-                                                request.getParameter("search-by"),
-                                                request.getParameter("sort-by"),
-                                                request.getParameter("page")));
-            System.out.println(BookDao.getInstance().countBooks());
-            request.setAttribute("amount_of_books", BookDao.getInstance().countBooks());
+            request.setAttribute("list_of_books", filterBooks(query, searchBy, sortBy, page));
+            request.setAttribute("amount_of_books", countPages(query, searchBy));
             request.getRequestDispatcher("/WEB-INF/jsp/catalog.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
             // TODO: 25.08.2021 error handling
@@ -45,23 +46,18 @@ public class CatalogServlet extends HttpServlet {
     }
 
     private static List<Book> filterBooks(String query, String searchBy, String sortBy, String page) throws SQLException, NamingException {
-        List<String> allowed = Arrays.asList("title", "author", "publisher", "year");
-        if (query == null) {
-            query = "";
-        }
-        if (!allowed.contains(searchBy)) {
-            searchBy = "title";
-        }
-        if (!allowed.contains(sortBy)) {
-            sortBy = "title";
-        }
-        List<Book> books;
+        int pageInt;
         try {
-            books = BookDao.getInstance().getAll(query, searchBy, sortBy, Integer.parseInt(page));
+            pageInt = Integer.parseInt(page);
         } catch (NumberFormatException e) {
-            books = BookDao.getInstance().getAll(query, searchBy, sortBy, 1);
+            pageInt = 1;
         }
-        return books;
+        return BookDao.getInstance().getAll(query, searchBy, sortBy, pageInt);
+    }
+
+    private static int countPages(String query, String searchBy) throws SQLException, NamingException {
+        int countBooks = BookDao.getInstance().countBooks(query, searchBy);
+        return countBooks % 8 == 0 ? countBooks / 8 : countBooks / 8 + 1;
     }
 
 }

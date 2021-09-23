@@ -15,7 +15,7 @@ public class BookDao implements Dao<Book> {
     private static final String DELETE_BOOK = "DELETE FROM book WHERE id=(?)";
     private static final String GET_BOOKS = "SELECT * FROM book WHERE %s ILIKE (?) ORDER BY %s LIMIT (?) OFFSET (?)";
     private static final String GET_BOOK_BY_ID = "SELECT title, author, publisher, year, amount FROM book WHERE id=(?)";
-    private static final String COUNT_BOOKS = "SELECT COUNT(*) FROM book";
+    private static final String COUNT_BOOKS = "SELECT COUNT(*) FROM book WHERE %s ILIKE (?)";
     private static final int itemsPerPage = 8;
 
     private BookDao() {
@@ -75,6 +75,19 @@ public class BookDao implements Dao<Book> {
         return books;
     }
 
+    public int countBooks(String query, String searchBy) throws SQLException, NamingException {
+        try (Connection connection = DBManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(String.format(COUNT_BOOKS, searchBy))) {
+            statement.setString(1, String.format("%%%s%%", query));
+            try (ResultSet set = statement.executeQuery()) {
+                if (set.next()) {
+                    return set.getInt(1);
+                }
+            }
+        }
+        return 0;
+    }
+
     @Override
     public void insert(Book book) throws SQLException, NamingException {
         try (Connection connection = DBManager.getConnection();
@@ -114,15 +127,6 @@ public class BookDao implements Dao<Book> {
              PreparedStatement statement = connection.prepareStatement(DELETE_BOOK)) {
             statement.setInt(1, id);
             statement.executeUpdate();
-        }
-    }
-
-    public int countBooks() throws SQLException, NamingException {
-        try (Connection connection = DBManager.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet set = statement.executeQuery(COUNT_BOOKS)) {
-            set.next();
-            return set.getInt(1);
         }
     }
 

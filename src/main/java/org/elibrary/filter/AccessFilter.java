@@ -1,5 +1,6 @@
 package org.elibrary.filter;
 
+import org.elibrary.entity.Role;
 import org.elibrary.entity.User;
 
 import javax.servlet.*;
@@ -7,18 +8,20 @@ import javax.servlet.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @WebFilter("/*")
 public class AccessFilter implements Filter {
 
+    private static final Map<Role, List<String>> map = new EnumMap<>(Role.class);
     private static final List<String> UNAUTHORISED = Arrays.asList("login", "signup", "logout", "catalog", "LogInServlet",
-            "NewBookServlet", "SignUpServlet", "new-loan");
-    private static final List<String> READER = Arrays.asList("new-loan", "user-loans");
-    private static final List<String> LIBRARIAN = Arrays.asList("LoanManagementServlet", "loans", "user-loans", "users");
-    private static final List<String> ADMIN = Arrays.asList("book-management", "NewBookServlet", "new-book", "UserManagementServlet",
-            "users");
+            "SignUpServlet", "new-loan", "SetLocaleServlet");
+
+    static {
+        map.put(Role.READER, Arrays.asList("new-loan", "user-loans", "profile"));
+        map.put(Role.LIBRARIAN, Arrays.asList("LoanManagementServlet", "loans", "user-loans", "users", "profile"));
+        map.put(Role.ADMIN, Arrays.asList("book-management", "NewBookServlet", "new-book", "UserManagementServlet", "users", "profile"));
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
@@ -27,34 +30,16 @@ public class AccessFilter implements Filter {
         String uri = httpRequest.getRequestURI();
         String resource = uri.substring(uri.lastIndexOf('/') + 1);
         System.out.println(resource);
-        if (!resource.endsWith(".css")) {
+        if (!(resource.endsWith(".css") || resource.endsWith(".svg"))) {
             User user = (User) httpRequest.getSession().getAttribute("user");
             if (user != null) {
-                switch (user.getRole()) {
-                    case READER:
-                        if (!(READER.contains(resource) || UNAUTHORISED.contains(resource))) {
-                            httpResponse.sendRedirect("catalog");
-                            return;
-                        }
-                        break;
-                    case LIBRARIAN:
-                        if (!(LIBRARIAN.contains(resource) || UNAUTHORISED.contains(resource))) {
-                            httpResponse.sendRedirect("catalog");
-                            return;
-                        }
-                        break;
-                    case ADMIN:
-                        if (!(ADMIN.contains(resource) || UNAUTHORISED.contains(resource))) {
-                            httpResponse.sendRedirect("catalog");
-                            return;
-                        }
-                        break;
-                }
-            } else {
-                if (!UNAUTHORISED.contains(resource)) {
+                if (!(map.get(user.getRole()).contains(resource) || UNAUTHORISED.contains(resource))) {
                     httpResponse.sendRedirect("catalog");
                     return;
                 }
+            } else if (!UNAUTHORISED.contains(resource)) {
+                httpResponse.sendRedirect("catalog");
+                return;
             }
         }
         chain.doFilter(request, response);

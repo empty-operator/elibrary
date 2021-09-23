@@ -59,18 +59,17 @@ public class Book implements Serializable {
         this.amount = amount;
     }
 
-    public String getAmountString() {
-        /*
-         TODO: 26.08.2021 l10n
-         if ((amount >= 10 && amount <= 20) || !(amount % 10 >= 1 && amount % 10 <= 4)) {
-             return amount + " копій";
-         } else if (amount % 10 == 1) {
-             return amount + " копія";
-         } else {
-             return amount + " копії";
-         }
-        */
-        return amount + (amount > 1 ? " copies" : " copy");
+    public String getAmountString(String lang) {
+        if (lang.equals("en")) {
+            return amount + (amount > 1 ? " copies" : " copy");
+        }
+        if ((amount >= 10 && amount <= 20) || !(amount % 10 >= 1 && amount % 10 <= 4)) {
+            return amount + " копій";
+        } else if (amount % 10 == 1) {
+            return amount + " копія";
+        } else {
+            return amount + " копії";
+        }
     }
 
 }

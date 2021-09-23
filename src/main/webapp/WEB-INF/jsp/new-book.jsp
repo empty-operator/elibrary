@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${cookie['lang'].value}"/>
+<fmt:setBundle basename="messages"/>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -14,7 +17,7 @@
 
 <main class="form-new-book">
     <form action="NewBookServlet" method="post">
-        <%--        <img class="mb-4" src="img/logo.svg" width="64" height="64" alt="logo">--%>
+
         <h1 class="h3 mb-3 fw-normal">
             <c:if test="${empty requestScope.book}">Add book</c:if>
             <c:if test="${not empty requestScope.book}">Edit book</c:if>

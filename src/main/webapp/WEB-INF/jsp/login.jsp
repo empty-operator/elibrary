@@ -1,37 +1,43 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${cookie['lang'].value}"/>
+<fmt:setBundle basename="messages"/>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Log in</title>
+    <title><fmt:message key="login.label"/></title>
 
+    <link href="css/catalog.css" rel="stylesheet">
     <link href="css/login.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 </head>
+
 <body class="text-center">
 
 <main class="form-login">
+
     <form action="LogInServlet" method="post">
-        <h1 class="h3 mb-3 fw-normal">Log in</h1>
+        <h1 class="h3 mb-3 fw-normal"><fmt:message key="login.label"/></h1>
 
         <div class="form-floating">
             <input name="email" type="email" class="form-control" id="email" placeholder="name@example.com">
-            <label for="email">Email address</label>
+            <label for="email"><fmt:message key="user.label.email-address"/></label>
         </div>
 
         <div class="form-floating">
             <input name="password" type="password" class="form-control" id="password" placeholder="Password">
-            <label for="password">Password</label>
+            <label for="password"><fmt:message key="user.label.password"/></label>
         </div>
 
         <div class="checkbox mb-3">
             <label>
-                <input name="remember-me" type="checkbox"> Remember me
+                <input name="remember-me" type="checkbox"> <fmt:message key="login.label.remember-me"/>
             </label>
         </div>
 
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit"><fmt:message key="login.label"/></button>
     </form>
 </main>
 

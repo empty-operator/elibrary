@@ -45,6 +45,15 @@
         <url-pattern>/new-book</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Profile</servlet-name>
+        <jsp-file>/WEB-INF/jsp/profile.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Profile</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+
     <resource-ref>
         <description>postgreSQL Datasource</description>
         <res-ref-name>jdbc/postgres</res-ref-name>

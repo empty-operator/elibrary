@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" import="org.elibrary.entity.Role" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${cookie['lang'].value}"/>
+<fmt:setBundle basename="messages"/>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -21,12 +24,12 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">Book title</th>
-                    <th scope="col">Loaned at</th>
-                    <th scope="col">Due date</th>
-                    <th scope="col">Returned at</th>
-                    <th scope="col">Fine</th>
-                    <th scope="col">Status</th>
+                    <th scope="col"><fmt:message key="loan.label.book-title"/></th>
+                    <th scope="col"><fmt:message key="loan.label.loaned-at"/></th>
+                    <th scope="col"><fmt:message key="loan.label.due-date"/></th>
+                    <th scope="col"><fmt:message key="loan.label.returned-at"/></th>
+                    <th scope="col"><fmt:message key="loan.label.fine"/></th>
+                    <th scope="col"><fmt:message key="loan.label.status"/></th>
                 </tr>
                 </thead>
                 <tbody class="text-truncate">
@@ -43,18 +46,10 @@
                         </td>
                         <td>
                             <c:choose>
-                                <c:when test="${loan.rejected}">
-                                    Rejected
-                                </c:when>
-                                <c:when test="${empty loan.loanedAt}">
-                                    In process
-                                </c:when>
-                                <c:when test="${empty loan.returnedAt}">
-                                    Issued
-                                </c:when>
-                                <c:otherwise>
-                                    Returned
-                                </c:otherwise>
+                                <c:when test="${loan.rejected}"><fmt:message key="loan.label.status.rejected"/></c:when>
+                                <c:when test="${empty loan.loanedAt}"><fmt:message key="loan.label.status.in-process"/></c:when>
+                                <c:when test="${empty loan.returnedAt}"><fmt:message key="loan.label.status.issued"/></c:when>
+                                <c:otherwise><fmt:message key="loan.label.status.returned"/></c:otherwise>
                             </c:choose>
                         </td>
                     </tr>

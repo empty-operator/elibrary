@@ -1,25 +1,39 @@
-<div class="container" style="margin-left: 100px; margin-right: 100px">
-    <header class="d-flex justify-content-center py-3">
-        <ul class="nav nav-pills">
-            <li class="nav-item"><a href="catalog" class="nav-link" aria-current="page">Catalog</a></li>
-            <c:if test="${not empty sessionScope.user}">
-                <c:if test="${not sessionScope.user.banned}">
-                    <c:choose>
-                        <c:when test="${sessionScope.user.role eq Role.READER}">
-                            <li class="nav-item"><a href="user-loans" class="nav-link">Loans</a></li>
-                        </c:when>
-                        <c:when test="${sessionScope.user.role eq Role.LIBRARIAN}">
-                            <li class="nav-item"><a href="users" class="nav-link">Users</a></li>
-                            <li class="nav-item"><a href="loans" class="nav-link">Loans</a></li>
-                        </c:when>
-                        <c:when test="${sessionScope.user.role eq Role.ADMIN}">
-                            <li class="nav-item"><a href="users" class="nav-link">Users</a></li>
-                            <li class="nav-item"><a href="new-book" class="nav-link">Add book</a></li>
-                        </c:when>
-                    </c:choose>
+<header class="p-3 border-bottom">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="catalog" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <img class="bi" width="40" height="32" src="img/logo.svg" alt="eLibrary">
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li class="nav-item"><a href="catalog" class="nav-link px-2" aria-current="page"><fmt:message key="header.label.catalog"/></a></li>
+                <c:if test="${not empty sessionScope.user}">
+                    <li class="nav-item"><a href="profile" class="nav-link px-2"><fmt:message key="header.label.profile"/></a></li>
+                    <c:if test="${not sessionScope.user.banned}">
+                        <c:choose>
+                            <c:when test="${sessionScope.user.role eq Role.READER}">
+                                <li class="nav-item"><a href="user-loans" class="nav-link px-2"><fmt:message key="header.label.loans"/></a></li>
+                            </c:when>
+                            <c:when test="${sessionScope.user.role eq Role.LIBRARIAN}">
+                                <li class="nav-item"><a href="users" class="nav-link px-2"><fmt:message key="header.label.users"/></a></li>
+                                <li class="nav-item"><a href="loans" class="nav-link px-2"><fmt:message key="header.label.loans"/></a></li>
+                            </c:when>
+                            <c:when test="${sessionScope.user.role eq Role.ADMIN}">
+                                <li class="nav-item"><a href="users" class="nav-link px-2"><fmt:message key="header.label.users"/></a></li>
+                                <li class="nav-item"><a href="new-book" class="nav-link px-2"><fmt:message key="header.label.add-book"/></a></li>
+                            </c:when>
+                        </c:choose>
+                    </c:if>
+                    <li class="nav-item"><a href="logout" class="nav-link px-2"><fmt:message key="header.label.log-out"/></a></li>
                 </c:if>
-                <li class="nav-item"><a href="logout" class="nav-link">Log out</a></li>
-            </c:if>
-        </ul>
-    </header>
-</div>
+            </ul>
+
+            <div class="text-end">
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                    <a href="SetLocaleServlet?lang=uk" class="btn btn-outline-secondary">ua</a>
+                    <a href="SetLocaleServlet?lang=en" class="btn btn-outline-secondary">en</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

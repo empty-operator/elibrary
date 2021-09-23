@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" import="org.elibrary.entity.Role" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${cookie['lang'].value}"/>
+<fmt:setBundle basename="messages"/>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -22,15 +25,15 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">First name</th>
-                    <th scope="col">Last name</th>
-                    <th scope="col">Email</th>
+                    <th scope="col"><fmt:message key="user.label.first-name"/></th>
+                    <th scope="col"><fmt:message key="user.label.last-name"/></th>
+                    <th scope="col"><fmt:message key="user.label.email-address"/></th>
                     <c:if test="${sessionScope.user.role eq Role.ADMIN}">
-                        <th scope="col">Role</th>
+                        <th scope="col"><fmt:message key="user.label.role"/></th>
                     </c:if>
-                    <th scope="col">Banned</th>
-                    <th scope="col">Total fine</th>
-                    <th scope="col">Manage</th>
+                    <th scope="col"><fmt:message key="user.label.banned"/></th>
+                    <th scope="col"><fmt:message key="user.label.total-fine"/></th>
+                    <th scope="col"><fmt:message key="user.label.manage"/></th>
                 </tr>
                 </thead>
                 <tbody>

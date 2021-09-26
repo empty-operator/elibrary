@@ -44,8 +44,8 @@ public class NewBookServlet extends HttpServlet {
                     break;
             }
         } catch (SQLException | NamingException e) {
-            // TODO: 24.08.2021 error handling
             LOG.error("Cannot insert book" + e);
+            response.sendRedirect("error");
         }
         response.sendRedirect("catalog");
     }

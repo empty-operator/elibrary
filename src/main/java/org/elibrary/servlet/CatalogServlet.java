@@ -36,8 +36,8 @@ public class CatalogServlet extends HttpServlet {
             request.setAttribute("amount_of_books", countPages(query, searchBy));
             request.getRequestDispatcher("/WEB-INF/jsp/catalog.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
-            // TODO: 25.08.2021 error handling
             LOG.error("Cannot get books", e);
+            response.sendRedirect("error");
         }
     }
 

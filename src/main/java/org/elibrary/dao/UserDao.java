@@ -49,12 +49,13 @@ public class UserDao implements Dao<User> {
     }
 
     public User getByEmail(String email) throws SQLException, NamingException {
-        User user = new User();
+        User user = null;
         try (Connection connection = DBManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(GET_USER_BY_EMAIL)) {
             statement.setString(1, email);
             try (ResultSet set = statement.executeQuery()) {
                 if (set.next()) {
+                    user = new User();
                     user.setId(set.getInt(1));
                     user.setFirstName(set.getString(2));
                     user.setLastName(set.getString(3));

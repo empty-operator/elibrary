@@ -1,5 +1,7 @@
 package org.elibrary.filter;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.elibrary.entity.Role;
 import org.elibrary.entity.User;
 
@@ -13,9 +15,11 @@ import java.util.*;
 @WebFilter("/*")
 public class AccessFilter implements Filter {
 
+    private static final Logger LOG = LogManager.getLogger(AccessFilter.class);
+
     private static final Map<Role, List<String>> map = new EnumMap<>(Role.class);
     private static final List<String> UNAUTHORISED = Arrays.asList("login", "signup", "logout", "catalog", "LogInServlet",
-            "SignUpServlet", "new-loan", "SetLocaleServlet");
+            "SignUpServlet", "new-loan", "SetLocaleServlet", "error");
 
     static {
         map.put(Role.READER, Arrays.asList("new-loan", "user-loans", "profile"));
@@ -29,7 +33,7 @@ public class AccessFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         String uri = httpRequest.getRequestURI();
         String resource = uri.substring(uri.lastIndexOf('/') + 1);
-        System.out.println(resource);
+        LOG.info("Resource has been accessed: " + resource);
         if (!(resource.endsWith(".css") || resource.endsWith(".svg"))) {
             User user = (User) httpRequest.getSession().getAttribute("user");
             if (user != null) {

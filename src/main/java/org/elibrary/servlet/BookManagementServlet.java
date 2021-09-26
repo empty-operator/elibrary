@@ -39,8 +39,8 @@ public class BookManagementServlet extends HttpServlet {
                     break;
             }
         } catch (SQLException | NamingException e) {
-            // TODO: 13.09.2021 error handling
             LOG.error("Cannot update book");
+            response.sendRedirect("error");
         }
     }
 

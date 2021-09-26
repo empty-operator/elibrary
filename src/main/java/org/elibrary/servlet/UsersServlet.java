@@ -36,8 +36,8 @@ public class UsersServlet extends HttpServlet {
                                                          .collect(Collectors.toList()));
             request.getRequestDispatcher("/WEB-INF/jsp/users.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
-            // TODO: 07.09.2021 error handling
             LOG.error("Cannot get users", e);
+            response.sendRedirect("error");
         }
     }
 

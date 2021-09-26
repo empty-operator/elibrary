@@ -106,15 +106,19 @@
                                     <form class="form-loan d-flex align-items-center" action="new-loan" method="post">
                                         <input name="book-id" type="hidden" value="${book.id}">
                                         <c:if test="${book.amount eq 0}">
-                                            <button type="submit" class="btn btn-primary disabled"><fmt:message key="catalog.label.borrow"/></button>
+                                            <c:if test="${sessionScope.user.role eq Role.READER}">
+                                                <button type="submit" class="btn btn-primary disabled"><fmt:message key="catalog.label.borrow"/></button>
+                                            </c:if>
                                             <small class="text-muted"><fmt:message key="catalog.label.not-available"/></small>
                                         </c:if>
                                         <c:if test="${not (book.amount eq 0)}">
-                                            <c:if test="${not sessionScope.user.banned}">
-                                                <button type="submit" class="btn btn-primary"><fmt:message key="catalog.label.borrow"/></button>
-                                            </c:if>
-                                            <c:if test="${sessionScope.user.banned}">
-                                                <button type="submit" class="btn btn-primary disabled"><fmt:message key="catalog.label.borrow"/></button>
+                                            <c:if test="${sessionScope.user.role eq Role.READER}">
+                                                <c:if test="${not sessionScope.user.banned}">
+                                                    <button type="submit" class="btn btn-primary"><fmt:message key="catalog.label.borrow"/></button>
+                                                </c:if>
+                                                <c:if test="${sessionScope.user.banned}">
+                                                    <button type="submit" class="btn btn-primary disabled"><fmt:message key="catalog.label.borrow"/></button>
+                                                </c:if>
                                             </c:if>
                                             <small class="text-muted"><c:out value="${book.getAmountString(cookie['lang'].value)}"/></small>
                                         </c:if>

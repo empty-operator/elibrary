@@ -50,7 +50,7 @@
                         </thead>
                         <tbody>
                         <c:forEach items="${requestScope.list_of_loans}" var="loan">
-                            <c:if test="${empty loan.loanedAt}">
+                            <c:if test="${empty loan.loanedAt and not loan.rejected}">
                                 <tr>
                                     <td><c:out value="${loan.user.firstName}"/></td>
                                     <td><c:out value="${loan.user.lastName}"/></td>

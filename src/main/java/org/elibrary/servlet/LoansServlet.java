@@ -24,8 +24,8 @@ public class LoansServlet extends HttpServlet {
             request.setAttribute("list_of_loans", LoanDao.getInstance().getAll());
             request.getRequestDispatcher("/WEB-INF/jsp/loans.jsp").forward(request, response);
         } catch (SQLException | NamingException e) {
-            // TODO: 25.08.2021 error handling
             LOG.error("Cannot get loans", e);
+            response.sendRedirect("error");
         }
     }
 

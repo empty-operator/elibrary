@@ -7,6 +7,7 @@ import org.elibrary.entity.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.naming.NamingException;
+import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
@@ -23,21 +24,27 @@ public class LogInServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
             User user = UserDao.getInstance().getByEmail(request.getParameter("email"));
-            if (request.getParameter("remember-me") != null) {
-                request.getSession().setMaxInactiveInterval(60 * 60 * 24);
+            if (user == null) {
+                request.setAttribute("invalid-email", true);
+                request.getRequestDispatcher("login").forward(request, response);
+                return;
             }
             if (BCrypt.checkpw(request.getParameter("password"), user.getPassword())) {
+                if (request.getParameter("remember-me") != null) {
+                    request.getSession().setMaxInactiveInterval(60 * 60 * 24);
+                }
                 request.getSession().setAttribute("user", user);
                 response.sendRedirect("catalog");
             } else {
-                response.sendRedirect("login");
+                request.setAttribute("invalid-password", true);
+                request.getRequestDispatcher("login").forward(request, response);
             }
         } catch (SQLException | NamingException e) {
-            // TODO: 26.08.2021 error handling
             LOG.error("User login error");
+            response.sendRedirect("error");
         }
     }
 

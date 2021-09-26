@@ -67,17 +67,17 @@
                                     <input name="user-id" type="hidden" value="${user.id}">
                                     <c:if test="${user.role eq Role.READER}">
                                         <button name="action" value="make-librarian" type="submit"
-                                                class="btn btn-primary w-auto">Make librarian
+                                                class="btn btn-primary w-auto"><fmt:message key="user.label.manage.make-librarian"/>
                                         </button>
                                     </c:if>
                                     <c:if test="${user.role eq Role.LIBRARIAN}">
                                         <button name="action" value="make-reader" type="submit"
                                                 class="btn btn-primary w-auto">
-                                            Make reader
+                                            <fmt:message key="user.label.manage.make-reader"/>
                                         </button>
                                     </c:if>
                                     <c:if test="${not user.banned}">
-                                        <button name="action" value="ban" type="submit" class="btn btn-danger w-25">Ban
+                                        <button name="action" value="ban" type="submit" class="btn btn-danger w-25"><fmt:message key="user.label.manage.ban"/>
                                         </button>
                                     </c:if>
                                     <c:if test="${user.banned}">

@@ -43,11 +43,11 @@ public class UserManagementServlet extends HttpServlet {
                     break;
             }
             userDao.update(user);
+            response.sendRedirect("users");
         } catch (SQLException | NamingException e) {
-            // TODO: 08.09.2021 error handling
             LOG.error("Cannot update user", e);
+            response.sendRedirect("error");
         }
-        response.sendRedirect("users");
     }
 
 }

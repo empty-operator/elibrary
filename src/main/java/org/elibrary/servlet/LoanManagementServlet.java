@@ -45,8 +45,8 @@ public class LoanManagementServlet extends HttpServlet {
             loanDao.update(loan);
             response.sendRedirect("loans");
         } catch (SQLException | NamingException | ParseException e) {
-            // TODO: 04.09.2021 error handling
             LOG.error("Cannot update loan", e);
+            response.sendRedirect("error");
         }
     }
 

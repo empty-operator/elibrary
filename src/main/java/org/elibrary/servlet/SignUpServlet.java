@@ -35,8 +35,8 @@ public class SignUpServlet extends HttpServlet {
             UserDao.getInstance().insert(user);
             request.getSession().setAttribute("user", user);
         } catch (SQLException | NamingException e) {
-            // TODO: 24.08.2021 error handling
             LOG.error("Cannot insert user" + e);
+            response.sendRedirect("error");
         }
         response.sendRedirect("catalog");
     }

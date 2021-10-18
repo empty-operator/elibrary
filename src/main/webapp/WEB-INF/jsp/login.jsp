@@ -34,7 +34,7 @@
                 <input name="email" type="email" class="form-control is-invalid" id="email" placeholder="name@example.com">
                 <label for="email"><fmt:message key="user.label.email-address"/></label>
                 <div class="invalid-feedback">
-                    <fmt:message key="login.label.invalid-email"/>
+                    <fmt:message key="login.label.invalid-email-not-exist"/>
                 </div>
             </div>
         </c:if>

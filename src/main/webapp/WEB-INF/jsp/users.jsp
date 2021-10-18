@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Loans</title>
+    <title><fmt:message key="header.label.users"/></title>
 
     <link href="css/loans.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -43,9 +43,23 @@
                         <td><c:out value="${user.lastName}"/></td>
                         <td><c:out value="${user.email}"/></td>
                         <c:if test="${sessionScope.user.role eq Role.ADMIN}">
-                            <td><c:out value="${user.role}"/></td>
+                            <td>
+                                <c:if test="${user.role eq Role.READER}">
+                                    <fmt:message key="user.label.role.reader"/>
+                                </c:if>
+                                <c:if test="${user.role eq Role.LIBRARIAN}">
+                                    <fmt:message key="user.label.role.librarian"/>
+                                </c:if>
+                            </td>
                         </c:if>
-                        <td>${user.banned ? "Yes" : "No"}</td>
+                        <td>
+                            <c:if test="${sessionScope.user.banned}">
+                                <fmt:message key="user.label.banned.yes"/>
+                            </c:if>
+                            <c:if test="${not sessionScope.user.banned}">
+                                <fmt:message key="user.label.banned.no"/>
+                            </c:if>
+                        </td>
                         <td class="text-danger">
                             <c:if test="${user.getTotalFine() gt 0}">
                                 <c:out value="$${user.getTotalFine()}"/>
@@ -55,7 +69,7 @@
                             <td>
                                 <form class="form-loan" action="user-loans" method="get">
                                     <input name="user_id" value="${user.id}" hidden>
-                                    <input class="btn btn-primary" type="submit" value="Loans">
+                                    <input class="btn btn-primary" type="submit" value="<fmt:message key="header.label.loans"/>">
                                 </form>
                             </td>
                         </c:if>
@@ -77,12 +91,13 @@
                                         </button>
                                     </c:if>
                                     <c:if test="${not user.banned}">
-                                        <button name="action" value="ban" type="submit" class="btn btn-danger w-25"><fmt:message key="user.label.manage.ban"/>
+                                        <button name="action" value="ban" type="submit" class="btn btn-danger w-auto">
+                                            <fmt:message key="user.label.manage.ban"/>
                                         </button>
                                     </c:if>
                                     <c:if test="${user.banned}">
-                                        <button name="action" value="unban" type="submit" class="btn btn-danger w-25">
-                                            Unban
+                                        <button name="action" value="unban" type="submit" class="btn btn-danger w-auto">
+                                            <fmt:message key="user.label.manage.unban"/>
                                         </button>
                                     </c:if>
                                 </form>

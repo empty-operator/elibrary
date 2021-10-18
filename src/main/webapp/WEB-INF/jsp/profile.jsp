@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Catalog</title>
+    <title><fmt:message key="header.label.profile"/></title>
 
     <link href="css/catalog.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -36,7 +36,7 @@
                     <th scope="col"><fmt:message key="user.label.email-address"/></th>
                     <td>${sessionScope.user.email}</td>
                 </tr>
-                <c:if test="${not (sessionScope.user.role eq Role.ADMIN)}">
+                <c:if test="${sessionScope.user.role eq Role.READER}">
                     <tr>
                         <th scope="col"><fmt:message key="user.label.total-fine"/></th>
                         <td class="text-danger">
@@ -45,6 +45,8 @@
                             </c:if>
                         </td>
                     </tr>
+                </c:if>
+                <c:if test="${not (sessionScope.user.role eq Role.ADMIN)}">
                     <tr>
                         <th scope="col"><fmt:message key="user.label.banned"/></th>
                         <td>

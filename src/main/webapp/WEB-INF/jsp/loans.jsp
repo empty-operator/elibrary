@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Loans</title>
+    <title><fmt:message key="header.label.loans"/></title>
 
     <link href="css/loans.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -24,16 +24,16 @@
 
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="in-process-tab" data-bs-toggle="tab" data-bs-target="#in-process" type="button" role="tab" aria-controls="in-process" aria-selected="true">In process</button>
+                    <button class="nav-link active" id="in-process-tab" data-bs-toggle="tab" data-bs-target="#in-process" type="button" role="tab" aria-controls="in-process" aria-selected="true"><fmt:message key="loan.label.status.in-process"/></button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="issued-tab" data-bs-toggle="tab" data-bs-target="#issued" type="button" role="tab" aria-controls="issued" aria-selected="false">Issued</button>
+                    <button class="nav-link" id="issued-tab" data-bs-toggle="tab" data-bs-target="#issued" type="button" role="tab" aria-controls="issued" aria-selected="false"><fmt:message key="loan.label.status.issued"/></button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="returned-tab" data-bs-toggle="tab" data-bs-target="#returned" type="button" role="tab" aria-controls="returned" aria-selected="false">Returned</button>
+                    <button class="nav-link" id="returned-tab" data-bs-toggle="tab" data-bs-target="#returned" type="button" role="tab" aria-controls="returned" aria-selected="false"><fmt:message key="loan.label.status.returned"/></button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="rejected-tab" data-bs-toggle="tab" data-bs-target="#rejected" type="button" role="tab" aria-controls="rejected" aria-selected="false">Rejected</button>
+                    <button class="nav-link" id="rejected-tab" data-bs-toggle="tab" data-bs-target="#rejected" type="button" role="tab" aria-controls="rejected" aria-selected="false"><fmt:message key="loan.label.status.rejected"/></button>
                 </li>
             </ul>
 
@@ -42,10 +42,10 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">First name</th>
-                            <th scope="col">Last name</th>
-                            <th scope="col">Book title</th>
-                            <th scope="col">Manage</th>
+                            <th scope="col"><fmt:message key="user.label.first-name"/></th>
+                            <th scope="col"><fmt:message key="user.label.last-name"/></th>
+                            <th scope="col"><fmt:message key="loan.label.book-title"/></th>
+                            <th scope="col"><fmt:message key="user.label.manage"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -67,11 +67,11 @@
                                             </div>
                                             <button class="w-25 btn btn-success" type="submit" name="action"
                                                     value="approve">
-                                                Approve
+                                                <fmt:message key="user.label.manage.approve"/>
                                             </button>
                                             <button class="w-25 btn btn-danger" type="submit" name="action"
                                                     value="reject">
-                                                Reject
+                                                <fmt:message key="user.label.manage.reject"/>
                                             </button>
                                         </form>
                                     </td>
@@ -85,13 +85,13 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">First name</th>
-                            <th scope="col">Last name</th>
-                            <th scope="col">Book title</th>
-                            <th scope="col">Loaned at</th>
-                            <th scope="col">Due date</th>
-                            <th scope="col">Fine</th>
-                            <th scope="col">Manage</th>
+                            <th scope="col"><fmt:message key="user.label.first-name"/></th>
+                            <th scope="col"><fmt:message key="user.label.last-name"/></th>
+                            <th scope="col"><fmt:message key="loan.label.book-title"/></th>
+                            <th scope="col"><fmt:message key="loan.label.loaned-at"/></th>
+                            <th scope="col"><fmt:message key="loan.label.due-date"/></th>
+                            <th scope="col"><fmt:message key="loan.label.fine"/></th>
+                            <th scope="col"><fmt:message key="user.label.manage"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -113,7 +113,7 @@
                                             <input name="loan-id" type="hidden" value="${loan.id}">
                                             <button class="btn btn-primary" type="submit" name="action"
                                                     value="return">
-                                                Return
+                                                <fmt:message key="user.label.manage.return"/>
                                             </button>
                                         </form>
                                     </td>
@@ -127,12 +127,12 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">First name</th>
-                            <th scope="col">Last name</th>
-                            <th scope="col">Book title</th>
-                            <th scope="col">Loaned at</th>
-                            <th scope="col">Due date</th>
-                            <th scope="col">Returned at</th>
+                            <th scope="col"><fmt:message key="user.label.first-name"/></th>
+                            <th scope="col"><fmt:message key="user.label.last-name"/></th>
+                            <th scope="col"><fmt:message key="loan.label.book-title"/></th>
+                            <th scope="col"><fmt:message key="loan.label.loaned-at"/></th>
+                            <th scope="col"><fmt:message key="loan.label.due-date"/></th>
+                            <th scope="col"><fmt:message key="loan.label.returned-at"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -155,9 +155,9 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">First name</th>
-                            <th scope="col">Last name</th>
-                            <th scope="col">Book title</th>
+                            <th scope="col"><fmt:message key="user.label.first-name"/></th>
+                            <th scope="col"><fmt:message key="user.label.last-name"/></th>
+                            <th scope="col"><fmt:message key="loan.label.book-title"/></th>
                         </tr>
                         </thead>
                         <tbody>

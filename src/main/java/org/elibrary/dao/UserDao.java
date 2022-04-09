@@ -98,7 +98,7 @@ public class UserDao implements Dao<User> {
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getPassword());
-            statement.setString(5, Role.READER.getValue());
+            statement.setString(5, user.getRole().getValue());
             if (statement.executeUpdate() > 0) {
                 try (ResultSet set = statement.getGeneratedKeys()) {
                     if (set.next()) {

@@ -3,6 +3,7 @@ package org.elibrary.servlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.elibrary.dao.UserDao;
+import org.elibrary.entity.Role;
 import org.elibrary.entity.User;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -28,10 +29,11 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         User user = new User();
-        user.setFirstName(request.getParameter("first_name"));
-        user.setLastName(request.getParameter("last_name"));
+        user.setFirstName(request.getParameter("first-name"));
+        user.setLastName(request.getParameter("last-name"));
         user.setEmail(request.getParameter("email"));
         user.setPassword(BCrypt.hashpw(request.getParameter("password"), BCrypt.gensalt()));
+        user.setRole(Role.READER);
         try {
             UserDao userDao = UserDao.getInstance();
             if (userDao.getByEmail(user.getEmail()) == null) {
